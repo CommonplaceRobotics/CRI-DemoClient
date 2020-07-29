@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/CRI_Client/bin/Debug/CRI_Client.exe.config
+/CRI_Client/bin/Debug/CRI_Client.exe

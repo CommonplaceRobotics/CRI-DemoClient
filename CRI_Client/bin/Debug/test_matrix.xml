@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Program>
+    <Header RobotName="igus Arm" RobotType="RL-DCi-5S-M" GripperType="" Software="CPRog V902-DEVELOPMENT" />
+    <Joint AbortCondition="False" Nr="1" Source="Numerical" velPercent="50" acc="40" smooth="20" a1="0" a2="10" a3="0" a4="80" a5="0" a6="0" e1="0" e2="0" e3="0" Descr="" />
+    <Store Nr="2" Type="position" Value="200 -230 180 180 0 180" ValueJoints="33.39948 30.39439 -5.462556 65.06816 33.39948 0 0 0 0" Name="a" Descr="" />
+    <Store Nr="3" Type="position" Value="300 -230 180 180 0 180" ValueJoints="33.39948 30.39439 -5.462556 65.06816 33.39948 0 0 0 0" Name="b" Descr="" />
+    <Store Nr="4" Type="position" Value="300 -90 180 180 0 180" ValueJoints="33.39948 30.39439 -5.462556 65.06816 33.39948 0 0 0 0" Name="c" Descr="" />
+    <Matrix Nr="5" CntX="3" CntY="4" VarPointA="A" VarPointB="B" VarPointC="C" VarTargetPos="target" VarCntX="X" VarCntY="Y" Descr="" />
+    <Linear AbortCondition="False" Nr="6" Source="Variable" vel="100" acc="40" smooth="20" VariableName="target" Descr="" />
+    <MatrixEnd Nr="7" Descr="" />
+</Program>

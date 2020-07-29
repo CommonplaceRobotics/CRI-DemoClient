@@ -372,7 +372,7 @@ namespace CRI_Client
             }
 
             string cmdText = "CMD LoadProgram ";
-            cmdText += "SRATest.xml";
+            cmdText += "test_matrix.xml";
             itf.SendCommand(cmdText);
 
         }
@@ -387,7 +387,7 @@ namespace CRI_Client
             //    return;
             //}
 
-            string progName = "SRATest.xml";
+            string progName = "test_matrix.xml";
             StreamReader sr; 
             string line;
             string msg;
@@ -402,8 +402,8 @@ namespace CRI_Client
             }
 
             // dann übertragen
-            msg = "CMD UploadProgramInit ";
-            msg += progName;
+            msg = "CMD UploadFileInit ";
+            msg += "Programs/" + progName;
             msg += " ";
             msg += nrOfLines;
             itf.SendCommand(msg);
@@ -414,13 +414,13 @@ namespace CRI_Client
                 System.Threading.Thread.Sleep(10);
                 line = sr.ReadLine();
 
-                msg = "CMD UploadProgramLine ";
+                msg = "CMD UploadFileLine ";
                 msg += line;
                 itf.SendCommand(msg);
 
             }
             System.Threading.Thread.Sleep(10);
-            msg = "CMD UploadProgramFinish";
+            msg = "CMD UploadFileFinish";
             itf.SendCommand(msg);
             
 

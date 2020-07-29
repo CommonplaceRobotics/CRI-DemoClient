@@ -246,7 +246,7 @@ namespace CRI_Client
                             }
 
                             // evaluate the content
-                            string res = Encoding.ASCII.GetString(buffer);
+                            string res = Encoding.ASCII.GetString(buffer, 0, cnt);
                             itf.ParseString(res);
                         }
                         catch (Exception)

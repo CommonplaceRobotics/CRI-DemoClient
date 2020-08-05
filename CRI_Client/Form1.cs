@@ -546,18 +546,18 @@ namespace CRI_Client
         private void checkBoxDOut0_CheckedChanged(object sender, EventArgs e)
         {
             if(checkBoxDOut0.Checked)
-                itf.SendCommand("CMD DOut 0 true");
+                itf.SendCommand("CMD DOUT 0 true");
             else
-                itf.SendCommand("CMD DOut 0 false");
+                itf.SendCommand("CMD DOUT 0 false");
 
         }
 
         private void checkBoxDout1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxDout1.Checked)
-                itf.SendCommand("CMD DOut 1 true");
+                itf.SendCommand("CMD DOUT 1 true");
             else
-                itf.SendCommand("CMD DOut 1 false");
+                itf.SendCommand("CMD DOUT 1 false");
         }
 
         private void buttonRequestNrVar_Click(object sender, EventArgs e)

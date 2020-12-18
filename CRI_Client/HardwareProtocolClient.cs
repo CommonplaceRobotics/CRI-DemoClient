@@ -139,7 +139,7 @@ namespace CRI_Client
         // Sets the override [0..100]
         public void SetOverride(double ovr)
         {
-            if (ovr > 1000) ovr = 100.0;
+            if (ovr > 100.0) ovr = 100.0;
             if (ovr < 0.0) ovr = 0.0;
             string cmdString = "CMD Override " + ovr.ToString("0.0");
             SendCommand(cmdString);

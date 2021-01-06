@@ -622,5 +622,17 @@ namespace CRI_Client
         {
             itf.flagHideFurtherStatusMessages = checkBoxHideFurtherStatusMessages.Checked;
         }
+
+        private void buttonSendCustomCommand_Click(object sender, EventArgs e)
+        {
+            string userCommand = ((TextBox)textBoxCustomCommand).Text;
+            itf.SendCommand(userCommand);
+        }
+
+        private void textBoxCustomCommand_TextChanged(object sender, EventArgs e)
+        {
+            string userCommand = ((TextBox)textBoxCustomCommand).Text;
+            labelCustomCommand.Text = "Command: \"CRISTART 123 " + userCommand + " CRIEND\"";
+        }
     }
 }

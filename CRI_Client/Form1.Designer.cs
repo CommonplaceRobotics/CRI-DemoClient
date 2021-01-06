@@ -44,6 +44,9 @@
             this.buttonZeroJoints = new System.Windows.Forms.Button();
             this.buttonItfReset = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxHideFurtherStatusMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideUnknownMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideStatusMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxHideAliveMessages = new System.Windows.Forms.CheckBox();
             this.labelCnt = new System.Windows.Forms.Label();
             this.labelEStop = new System.Windows.Forms.Label();
@@ -121,26 +124,28 @@
             this.tabPageProgram = new System.Windows.Forms.TabPage();
             this.tabPageCommands = new System.Windows.Forms.TabPage();
             this.tabPageVariables = new System.Windows.Forms.TabPage();
+            this.textBoxPosVarExtValues = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBoxPosVarCartValue = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.buttonSetPosVarCart = new System.Windows.Forms.Button();
+            this.textBoxPosVarJointValue = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.buttonSetPosVarJoint = new System.Windows.Forms.Button();
+            this.textBoxNrVarValue = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.buttonSetNrVar = new System.Windows.Forms.Button();
             this.textBoxVarNamePos = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.buttonRequestPosVar = new System.Windows.Forms.Button();
             this.textBoxVarNameNr = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPageReferencing = new System.Windows.Forms.TabPage();
-            this.buttonSetNrVar = new System.Windows.Forms.Button();
-            this.textBoxNrVarValue = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.textBoxPosVarJointValue = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.buttonSetPosVarJoint = new System.Windows.Forms.Button();
-            this.textBoxPosVarCartValue = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.buttonSetPosVarCart = new System.Windows.Forms.Button();
-            this.textBoxPosVarExtValues = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.checkBoxHideStatusMessages = new System.Windows.Forms.CheckBox();
-            this.checkBoxHideUnknownMessages = new System.Windows.Forms.CheckBox();
-            this.checkBoxHideFurtherStatusMessages = new System.Windows.Forms.CheckBox();
+            this.tabPageCustom = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
+            this.labelCustomCommand = new System.Windows.Forms.Label();
+            this.buttonSendCustomCommand = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -151,6 +156,7 @@
             this.tabPageCommands.SuspendLayout();
             this.tabPageVariables.SuspendLayout();
             this.tabPageReferencing.SuspendLayout();
+            this.tabPageCustom.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -324,6 +330,43 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Status and Enabling";
+            // 
+            // checkBoxHideFurtherStatusMessages
+            // 
+            this.checkBoxHideFurtherStatusMessages.AutoSize = true;
+            this.checkBoxHideFurtherStatusMessages.Checked = true;
+            this.checkBoxHideFurtherStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHideFurtherStatusMessages.Location = new System.Drawing.Point(194, 79);
+            this.checkBoxHideFurtherStatusMessages.Name = "checkBoxHideFurtherStatusMessages";
+            this.checkBoxHideFurtherStatusMessages.Size = new System.Drawing.Size(244, 21);
+            this.checkBoxHideFurtherStatusMessages.TabIndex = 17;
+            this.checkBoxHideFurtherStatusMessages.Text = "Hide incoming further status msgs";
+            this.checkBoxHideFurtherStatusMessages.UseVisualStyleBackColor = true;
+            this.checkBoxHideFurtherStatusMessages.CheckedChanged += new System.EventHandler(this.checkBoxHideFurtherStatusMessages_CheckedChanged);
+            // 
+            // checkBoxHideUnknownMessages
+            // 
+            this.checkBoxHideUnknownMessages.AutoSize = true;
+            this.checkBoxHideUnknownMessages.Location = new System.Drawing.Point(194, 106);
+            this.checkBoxHideUnknownMessages.Name = "checkBoxHideUnknownMessages";
+            this.checkBoxHideUnknownMessages.Size = new System.Drawing.Size(216, 21);
+            this.checkBoxHideUnknownMessages.TabIndex = 16;
+            this.checkBoxHideUnknownMessages.Text = "Hide incoming unknown msgs";
+            this.checkBoxHideUnknownMessages.UseVisualStyleBackColor = true;
+            this.checkBoxHideUnknownMessages.CheckedChanged += new System.EventHandler(this.checkBoxHideUnknownMessages_CheckedChanged);
+            // 
+            // checkBoxHideStatusMessages
+            // 
+            this.checkBoxHideStatusMessages.AutoSize = true;
+            this.checkBoxHideStatusMessages.Checked = true;
+            this.checkBoxHideStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHideStatusMessages.Location = new System.Drawing.Point(194, 52);
+            this.checkBoxHideStatusMessages.Name = "checkBoxHideStatusMessages";
+            this.checkBoxHideStatusMessages.Size = new System.Drawing.Size(235, 21);
+            this.checkBoxHideStatusMessages.TabIndex = 15;
+            this.checkBoxHideStatusMessages.Text = "Hide incoming basic status msgs";
+            this.checkBoxHideStatusMessages.UseVisualStyleBackColor = true;
+            this.checkBoxHideStatusMessages.CheckedChanged += new System.EventHandler(this.checkBoxHideStatusMessages_CheckedChanged);
             // 
             // checkBoxHideAliveMessages
             // 
@@ -1125,6 +1168,7 @@
             this.tabControl1.Controls.Add(this.tabPageCommands);
             this.tabControl1.Controls.Add(this.tabPageVariables);
             this.tabControl1.Controls.Add(this.tabPageReferencing);
+            this.tabControl1.Controls.Add(this.tabPageCustom);
             this.tabControl1.Location = new System.Drawing.Point(631, 16);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1223,6 +1267,111 @@
             this.tabPageVariables.Text = "Variables";
             this.tabPageVariables.UseVisualStyleBackColor = true;
             // 
+            // textBoxPosVarExtValues
+            // 
+            this.textBoxPosVarExtValues.Location = new System.Drawing.Point(314, 257);
+            this.textBoxPosVarExtValues.Name = "textBoxPosVarExtValues";
+            this.textBoxPosVarExtValues.Size = new System.Drawing.Size(283, 22);
+            this.textBoxPosVarExtValues.TabIndex = 29;
+            this.textBoxPosVarExtValues.Text = "0.0 0.0 0.0";
+            this.textBoxPosVarExtValues.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(224, 260);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(76, 17);
+            this.label18.TabIndex = 28;
+            this.label18.Text = "Ext. Joints:";
+            // 
+            // textBoxPosVarCartValue
+            // 
+            this.textBoxPosVarCartValue.Location = new System.Drawing.Point(314, 220);
+            this.textBoxPosVarCartValue.Name = "textBoxPosVarCartValue";
+            this.textBoxPosVarCartValue.Size = new System.Drawing.Size(283, 22);
+            this.textBoxPosVarCartValue.TabIndex = 27;
+            this.textBoxPosVarCartValue.Text = "400.0 -100.0 200.0 180.0 0.0 180.0";
+            this.textBoxPosVarCartValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(224, 223);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(85, 17);
+            this.label17.TabIndex = 26;
+            this.label17.Text = "Cart Values:";
+            // 
+            // buttonSetPosVarCart
+            // 
+            this.buttonSetPosVarCart.Location = new System.Drawing.Point(41, 217);
+            this.buttonSetPosVarCart.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSetPosVarCart.Name = "buttonSetPosVarCart";
+            this.buttonSetPosVarCart.Size = new System.Drawing.Size(168, 28);
+            this.buttonSetPosVarCart.TabIndex = 25;
+            this.buttonSetPosVarCart.Text = "Set Pos Variable - Cart";
+            this.buttonSetPosVarCart.UseVisualStyleBackColor = true;
+            this.buttonSetPosVarCart.Click += new System.EventHandler(this.buttonSetPosVarCart_Click);
+            // 
+            // textBoxPosVarJointValue
+            // 
+            this.textBoxPosVarJointValue.Location = new System.Drawing.Point(314, 184);
+            this.textBoxPosVarJointValue.Name = "textBoxPosVarJointValue";
+            this.textBoxPosVarJointValue.Size = new System.Drawing.Size(283, 22);
+            this.textBoxPosVarJointValue.TabIndex = 24;
+            this.textBoxPosVarJointValue.Text = "0.0 -10.0 30.0 70.0 0.0 0.0";
+            this.textBoxPosVarJointValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(224, 187);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(89, 17);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Joint Values:";
+            // 
+            // buttonSetPosVarJoint
+            // 
+            this.buttonSetPosVarJoint.Location = new System.Drawing.Point(41, 181);
+            this.buttonSetPosVarJoint.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSetPosVarJoint.Name = "buttonSetPosVarJoint";
+            this.buttonSetPosVarJoint.Size = new System.Drawing.Size(168, 28);
+            this.buttonSetPosVarJoint.TabIndex = 22;
+            this.buttonSetPosVarJoint.Text = "Set Pos Variable - Joint";
+            this.buttonSetPosVarJoint.UseVisualStyleBackColor = true;
+            this.buttonSetPosVarJoint.Click += new System.EventHandler(this.buttonSetPosVarJoint_Click);
+            // 
+            // textBoxNrVarValue
+            // 
+            this.textBoxNrVarValue.Location = new System.Drawing.Point(365, 72);
+            this.textBoxNrVarValue.Name = "textBoxNrVarValue";
+            this.textBoxNrVarValue.Size = new System.Drawing.Size(165, 22);
+            this.textBoxNrVarValue.TabIndex = 21;
+            this.textBoxNrVarValue.Text = "12.7";
+            this.textBoxNrVarValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(284, 75);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 17);
+            this.label16.TabIndex = 20;
+            this.label16.Text = "Value:";
+            // 
+            // buttonSetNrVar
+            // 
+            this.buttonSetNrVar.Location = new System.Drawing.Point(41, 70);
+            this.buttonSetNrVar.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSetNrVar.Name = "buttonSetNrVar";
+            this.buttonSetNrVar.Size = new System.Drawing.Size(168, 28);
+            this.buttonSetNrVar.TabIndex = 17;
+            this.buttonSetNrVar.Text = "Set Nr Variable";
+            this.buttonSetNrVar.UseVisualStyleBackColor = true;
+            this.buttonSetNrVar.Click += new System.EventHandler(this.buttonSetNrVar_Click);
+            // 
             // textBoxVarNamePos
             // 
             this.textBoxVarNamePos.Location = new System.Drawing.Point(314, 149);
@@ -1282,147 +1431,54 @@
             this.tabPageReferencing.Text = "Referencing";
             this.tabPageReferencing.UseVisualStyleBackColor = true;
             // 
-            // buttonSetNrVar
+            // tabPageCustom
             // 
-            this.buttonSetNrVar.Location = new System.Drawing.Point(41, 70);
-            this.buttonSetNrVar.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonSetNrVar.Name = "buttonSetNrVar";
-            this.buttonSetNrVar.Size = new System.Drawing.Size(168, 28);
-            this.buttonSetNrVar.TabIndex = 17;
-            this.buttonSetNrVar.Text = "Set Nr Variable";
-            this.buttonSetNrVar.UseVisualStyleBackColor = true;
-            this.buttonSetNrVar.Click += new System.EventHandler(this.buttonSetNrVar_Click);
+            this.tabPageCustom.Controls.Add(this.buttonSendCustomCommand);
+            this.tabPageCustom.Controls.Add(this.labelCustomCommand);
+            this.tabPageCustom.Controls.Add(this.textBoxCustomCommand);
+            this.tabPageCustom.Controls.Add(this.label19);
+            this.tabPageCustom.Location = new System.Drawing.Point(4, 25);
+            this.tabPageCustom.Name = "tabPageCustom";
+            this.tabPageCustom.Size = new System.Drawing.Size(614, 384);
+            this.tabPageCustom.TabIndex = 5;
+            this.tabPageCustom.Text = "Custom";
+            this.tabPageCustom.UseVisualStyleBackColor = true;
             // 
-            // textBoxNrVarValue
+            // label19
             // 
-            this.textBoxNrVarValue.Location = new System.Drawing.Point(365, 72);
-            this.textBoxNrVarValue.Name = "textBoxNrVarValue";
-            this.textBoxNrVarValue.Size = new System.Drawing.Size(165, 22);
-            this.textBoxNrVarValue.TabIndex = 21;
-            this.textBoxNrVarValue.Text = "12.7";
-            this.textBoxNrVarValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(25, 27);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(172, 17);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Enter a custom command:";
             // 
-            // label16
+            // textBoxCustomCommand
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(284, 75);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(48, 17);
-            this.label16.TabIndex = 20;
-            this.label16.Text = "Value:";
+            this.textBoxCustomCommand.Location = new System.Drawing.Point(28, 54);
+            this.textBoxCustomCommand.Name = "textBoxCustomCommand";
+            this.textBoxCustomCommand.Size = new System.Drawing.Size(571, 22);
+            this.textBoxCustomCommand.TabIndex = 1;
+            this.textBoxCustomCommand.TextChanged += new System.EventHandler(this.textBoxCustomCommand_TextChanged);
             // 
-            // textBoxPosVarJointValue
+            // labelCustomCommand
             // 
-            this.textBoxPosVarJointValue.Location = new System.Drawing.Point(314, 184);
-            this.textBoxPosVarJointValue.Name = "textBoxPosVarJointValue";
-            this.textBoxPosVarJointValue.Size = new System.Drawing.Size(283, 22);
-            this.textBoxPosVarJointValue.TabIndex = 24;
-            this.textBoxPosVarJointValue.Text = "0.0 -10.0 30.0 70.0 0.0 0.0";
-            this.textBoxPosVarJointValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.labelCustomCommand.AutoSize = true;
+            this.labelCustomCommand.Location = new System.Drawing.Point(25, 82);
+            this.labelCustomCommand.Name = "labelCustomCommand";
+            this.labelCustomCommand.Size = new System.Drawing.Size(240, 17);
+            this.labelCustomCommand.TabIndex = 2;
+            this.labelCustomCommand.Text = "Command: \"CRISTART 123 CRIEND\"";
             // 
-            // label15
+            // buttonSendCustomCommand
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(224, 187);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 17);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "Joint Values:";
-            // 
-            // buttonSetPosVarJoint
-            // 
-            this.buttonSetPosVarJoint.Location = new System.Drawing.Point(41, 181);
-            this.buttonSetPosVarJoint.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonSetPosVarJoint.Name = "buttonSetPosVarJoint";
-            this.buttonSetPosVarJoint.Size = new System.Drawing.Size(168, 28);
-            this.buttonSetPosVarJoint.TabIndex = 22;
-            this.buttonSetPosVarJoint.Text = "Set Pos Variable - Joint";
-            this.buttonSetPosVarJoint.UseVisualStyleBackColor = true;
-            this.buttonSetPosVarJoint.Click += new System.EventHandler(this.buttonSetPosVarJoint_Click);
-            // 
-            // textBoxPosVarCartValue
-            // 
-            this.textBoxPosVarCartValue.Location = new System.Drawing.Point(314, 220);
-            this.textBoxPosVarCartValue.Name = "textBoxPosVarCartValue";
-            this.textBoxPosVarCartValue.Size = new System.Drawing.Size(283, 22);
-            this.textBoxPosVarCartValue.TabIndex = 27;
-            this.textBoxPosVarCartValue.Text = "400.0 -100.0 200.0 180.0 0.0 180.0";
-            this.textBoxPosVarCartValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(224, 223);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(85, 17);
-            this.label17.TabIndex = 26;
-            this.label17.Text = "Cart Values:";
-            // 
-            // buttonSetPosVarCart
-            // 
-            this.buttonSetPosVarCart.Location = new System.Drawing.Point(41, 217);
-            this.buttonSetPosVarCart.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonSetPosVarCart.Name = "buttonSetPosVarCart";
-            this.buttonSetPosVarCart.Size = new System.Drawing.Size(168, 28);
-            this.buttonSetPosVarCart.TabIndex = 25;
-            this.buttonSetPosVarCart.Text = "Set Pos Variable - Cart";
-            this.buttonSetPosVarCart.UseVisualStyleBackColor = true;
-            this.buttonSetPosVarCart.Click += new System.EventHandler(this.buttonSetPosVarCart_Click);
-            // 
-            // textBoxPosVarExtValues
-            // 
-            this.textBoxPosVarExtValues.Location = new System.Drawing.Point(314, 257);
-            this.textBoxPosVarExtValues.Name = "textBoxPosVarExtValues";
-            this.textBoxPosVarExtValues.Size = new System.Drawing.Size(283, 22);
-            this.textBoxPosVarExtValues.TabIndex = 29;
-            this.textBoxPosVarExtValues.Text = "0.0 0.0 0.0";
-            this.textBoxPosVarExtValues.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(224, 260);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(76, 17);
-            this.label18.TabIndex = 28;
-            this.label18.Text = "Ext. Joints:";
-            // 
-            // checkBoxHideStatusMessages
-            // 
-            this.checkBoxHideStatusMessages.AutoSize = true;
-            this.checkBoxHideStatusMessages.Checked = true;
-            this.checkBoxHideStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHideStatusMessages.Location = new System.Drawing.Point(194, 52);
-            this.checkBoxHideStatusMessages.Name = "checkBoxHideStatusMessages";
-            this.checkBoxHideStatusMessages.Size = new System.Drawing.Size(235, 21);
-            this.checkBoxHideStatusMessages.TabIndex = 15;
-            this.checkBoxHideStatusMessages.Text = "Hide incoming basic status msgs";
-            this.checkBoxHideStatusMessages.UseVisualStyleBackColor = true;
-            this.checkBoxHideStatusMessages.CheckedChanged += new System.EventHandler(this.checkBoxHideStatusMessages_CheckedChanged);
-            // 
-            // checkBoxHideUnknownMessages
-            // 
-            this.checkBoxHideUnknownMessages.AutoSize = true;
-            this.checkBoxHideUnknownMessages.Location = new System.Drawing.Point(194, 106);
-            this.checkBoxHideUnknownMessages.Name = "checkBoxHideUnknownMessages";
-            this.checkBoxHideUnknownMessages.Size = new System.Drawing.Size(216, 21);
-            this.checkBoxHideUnknownMessages.TabIndex = 16;
-            this.checkBoxHideUnknownMessages.Text = "Hide incoming unknown msgs";
-            this.checkBoxHideUnknownMessages.UseVisualStyleBackColor = true;
-            this.checkBoxHideUnknownMessages.CheckedChanged += new System.EventHandler(this.checkBoxHideUnknownMessages_CheckedChanged);
-            // 
-            // checkBoxHideFurtherStatusMessages
-            // 
-            this.checkBoxHideFurtherStatusMessages.AutoSize = true;
-            this.checkBoxHideFurtherStatusMessages.Checked = true;
-            this.checkBoxHideFurtherStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHideFurtherStatusMessages.Location = new System.Drawing.Point(194, 79);
-            this.checkBoxHideFurtherStatusMessages.Name = "checkBoxHideFurtherStatusMessages";
-            this.checkBoxHideFurtherStatusMessages.Size = new System.Drawing.Size(244, 21);
-            this.checkBoxHideFurtherStatusMessages.TabIndex = 17;
-            this.checkBoxHideFurtherStatusMessages.Text = "Hide incoming further status msgs";
-            this.checkBoxHideFurtherStatusMessages.UseVisualStyleBackColor = true;
-            this.checkBoxHideFurtherStatusMessages.CheckedChanged += new System.EventHandler(this.checkBoxHideFurtherStatusMessages_CheckedChanged);
+            this.buttonSendCustomCommand.Location = new System.Drawing.Point(28, 103);
+            this.buttonSendCustomCommand.Name = "buttonSendCustomCommand";
+            this.buttonSendCustomCommand.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendCustomCommand.TabIndex = 3;
+            this.buttonSendCustomCommand.Text = "Send";
+            this.buttonSendCustomCommand.UseVisualStyleBackColor = true;
+            this.buttonSendCustomCommand.Click += new System.EventHandler(this.buttonSendCustomCommand_Click);
             // 
             // Form1
             // 
@@ -1454,6 +1510,8 @@
             this.tabPageVariables.PerformLayout();
             this.tabPageReferencing.ResumeLayout(false);
             this.tabPageReferencing.PerformLayout();
+            this.tabPageCustom.ResumeLayout(false);
+            this.tabPageCustom.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1573,6 +1631,11 @@
         private System.Windows.Forms.CheckBox checkBoxHideUnknownMessages;
         private System.Windows.Forms.CheckBox checkBoxHideStatusMessages;
         private System.Windows.Forms.CheckBox checkBoxHideFurtherStatusMessages;
+        private System.Windows.Forms.TabPage tabPageCustom;
+        private System.Windows.Forms.Button buttonSendCustomCommand;
+        private System.Windows.Forms.Label labelCustomCommand;
+        private System.Windows.Forms.TextBox textBoxCustomCommand;
+        private System.Windows.Forms.Label label19;
     }
 }
 

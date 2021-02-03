@@ -469,6 +469,13 @@ namespace CRI_Client
                     return;
                 }
 
+                if(msgType == "GSIG")
+                {
+                    if(!flagHideFurtherStatusMessages)
+                        log.DebugFormat("GSig state is: {0}", msg);
+                    return;
+                }
+
                 if (!flagHideUnknownMessages)
                 {
                     log.Info(msg);

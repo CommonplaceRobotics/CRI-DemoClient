@@ -445,7 +445,7 @@ namespace CRI_Client
                 buttonJogXPlus.Text = "A1+"; buttonJogXMinus.Text = "A1-";
                 buttonJogYPlus.Text = "A2+"; buttonJogYMinus.Text = "A2-";
                 buttonJogZPlus.Text = "A3+"; buttonJogZMinus.Text = "A3-";
-                buttonJogAMinus.Text = "A4+"; buttonJogAPlus.Text = "A4-";
+                buttonJogAPlus.Text = "A4+"; buttonJogAMinus.Text = "A4-";
                 buttonJogBPlus.Text = "A5+"; buttonJogBMinus.Text = "A5-";
                 buttonJogCPlus.Text = "A6+"; buttonJogCMinus.Text = "A6-";
 
@@ -465,7 +465,7 @@ namespace CRI_Client
                 buttonJogXPlus.Text = "X+"; buttonJogXMinus.Text = "X-";
                 buttonJogYPlus.Text = "Y+"; buttonJogYMinus.Text = "Y-";
                 buttonJogZPlus.Text = "Z+"; buttonJogZMinus.Text = "Z-";
-                buttonJogAMinus.Text = "A+"; buttonJogAPlus.Text = "A-";
+                buttonJogAPlus.Text = "A+"; buttonJogAMinus.Text = "A-";
                 buttonJogBPlus.Text = "B+"; buttonJogBMinus.Text = "B-";
                 buttonJogCPlus.Text = "C+"; buttonJogCMinus.Text = "C-";
 
@@ -484,7 +484,7 @@ namespace CRI_Client
                 buttonJogXPlus.Text = "X+"; buttonJogXMinus.Text = "X-";
                 buttonJogYPlus.Text = "Y+"; buttonJogYMinus.Text = "Y-";
                 buttonJogZPlus.Text = "Z+"; buttonJogZMinus.Text = "Z-";
-                buttonJogAMinus.Text = "A+"; buttonJogAPlus.Text = "A-";
+                buttonJogAPlus.Text = "A+"; buttonJogAMinus.Text = "A-";
                 buttonJogBPlus.Text = "B+"; buttonJogBMinus.Text = "B-";
                 buttonJogCPlus.Text = "C+"; buttonJogCMinus.Text = "C-";
 
@@ -503,7 +503,7 @@ namespace CRI_Client
                 buttonJogXPlus.Text = "Forward"; buttonJogXMinus.Text = "Backward";
                 buttonJogYPlus.Text = "Right-Lat"; buttonJogYMinus.Text = "Left-Lat";
                 buttonJogZPlus.Text = "Right-Rot"; buttonJogZMinus.Text = "Left-Rot";
-                buttonJogAMinus.Text = "NC"; buttonJogAPlus.Text = "NC";
+                buttonJogAPlus.Text = "NC"; buttonJogAMinus.Text = "NC";
                 buttonJogBPlus.Text = "NC"; buttonJogBMinus.Text = "NC";
                 buttonJogCPlus.Text = "NC"; buttonJogCMinus.Text = "NC";
 

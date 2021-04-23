@@ -639,5 +639,80 @@ namespace CRI_Client
         {
             itf.Disconnect();
         }
+
+        private void buttonMoveToJoint_Click(object sender, EventArgs e)
+        {
+            double.TryParse(tbMoveToJ1.Text, out double j1);
+            double.TryParse(tbMoveToJ2.Text, out double j2);
+            double.TryParse(tbMoveToJ3.Text, out double j3);
+            double.TryParse(tbMoveToJ4.Text, out double j4);
+            double.TryParse(tbMoveToJ5.Text, out double j5);
+            double.TryParse(tbMoveToJ6.Text, out double j6);
+            double.TryParse(tbMoveToVelPerc.Text, out double velperc);
+
+            string userCommand = string.Format("CMD Move Joint {0} {1} {2} {3} {4} {5} 0 0 0 {6}", j1, j2, j3, j4, j5, j6, velperc);
+            itf.SendCommand(userCommand);
+        }
+
+        private void buttonMoveToRelativeJoint_Click(object sender, EventArgs e)
+        {
+            double.TryParse(tbMoveToJ1.Text, out double j1);
+            double.TryParse(tbMoveToJ2.Text, out double j2);
+            double.TryParse(tbMoveToJ3.Text, out double j3);
+            double.TryParse(tbMoveToJ4.Text, out double j4);
+            double.TryParse(tbMoveToJ5.Text, out double j5);
+            double.TryParse(tbMoveToJ6.Text, out double j6);
+            double.TryParse(tbMoveToVelPerc.Text, out double velperc);
+
+            string userCommand = string.Format("CMD Move RelativeJoint {0} {1} {2} {3} {4} {5} 0 0 0 {6}", j1, j2, j3, j4, j5, j6, velperc);
+            itf.SendCommand(userCommand);
+        }
+
+        private void buttonMoveToCart_Click(object sender, EventArgs e)
+        {
+            double.TryParse(tbMoveToX.Text, out double x);
+            double.TryParse(tbMoveToY.Text, out double y);
+            double.TryParse(tbMoveToZ.Text, out double z);
+            double.TryParse(tbMoveToA.Text, out double a);
+            double.TryParse(tbMoveToB.Text, out double b);
+            double.TryParse(tbMoveToC.Text, out double c);
+            double.TryParse(tbMoveToVelMms.Text, out double velmms);
+
+            string userCommand = string.Format("CMD Move Cart {0} {1} {2} {3} {4} {5} 0 0 0 {6}", x, y, z, a, b, c, velmms);
+            itf.SendCommand(userCommand);
+        }
+
+        private void buttonMoveToRelativeBase_Click(object sender, EventArgs e)
+        {
+            double.TryParse(tbMoveToX.Text, out double x);
+            double.TryParse(tbMoveToY.Text, out double y);
+            double.TryParse(tbMoveToZ.Text, out double z);
+            double.TryParse(tbMoveToA.Text, out double a);
+            double.TryParse(tbMoveToB.Text, out double b);
+            double.TryParse(tbMoveToC.Text, out double c);
+            double.TryParse(tbMoveToVelMms.Text, out double velmms);
+
+            string userCommand = string.Format("CMD Move RelativeBase {0} {1} {2} {3} {4} {5} 0 0 0 {6}", x, y, z, a, b, c, velmms);
+            itf.SendCommand(userCommand);
+        }
+
+        private void buttonMoveToRelativeTool_Click(object sender, EventArgs e)
+        {
+            double.TryParse(tbMoveToX.Text, out double x);
+            double.TryParse(tbMoveToY.Text, out double y);
+            double.TryParse(tbMoveToZ.Text, out double z);
+            double.TryParse(tbMoveToA.Text, out double a);
+            double.TryParse(tbMoveToB.Text, out double b);
+            double.TryParse(tbMoveToC.Text, out double c);
+            double.TryParse(tbMoveToVelMms.Text, out double velmms);
+
+            string userCommand = string.Format("CMD Move RelativeTool {0} {1} {2} {3} {4} {5} 0 0 0 {6}", x, y, z, a, b, c, velmms);
+            itf.SendCommand(userCommand);
+        }
+
+        private void buttonMoveToStop_Click(object sender, EventArgs e)
+        {
+            itf.SendCommand("CMD Move Stop");
+        }
     }
 }

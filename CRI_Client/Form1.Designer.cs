@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonDisconnect = new System.Windows.Forms.Button();
             this.labelConnectionStatus = new System.Windows.Forms.Label();
             this.textBoxIPAddress = new System.Windows.Forms.TextBox();
             this.buttonStartTinyCtrl = new System.Windows.Forms.Button();
@@ -121,6 +122,42 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
+            this.tabPageMoveTo = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.tbMoveToVelMms = new System.Windows.Forms.TextBox();
+            this.buttonMoveToRelativeTool = new System.Windows.Forms.Button();
+            this.buttonMoveToRelativeBase = new System.Windows.Forms.Button();
+            this.buttonMoveToCart = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.tbMoveToC = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.tbMoveToB = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.tbMoveToA = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tbMoveToZ = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tbMoveToY = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.tbMoveToX = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.tbMoveToVelPerc = new System.Windows.Forms.TextBox();
+            this.buttonMoveToRelativeJoint = new System.Windows.Forms.Button();
+            this.buttonMoveToJoint = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.tbMoveToJ6 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tbMoveToJ5 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.tbMoveToJ4 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbMoveToJ3 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbMoveToJ2 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tbMoveToJ1 = new System.Windows.Forms.TextBox();
             this.tabPageProgram = new System.Windows.Forms.TabPage();
             this.tabPageCommands = new System.Windows.Forms.TabPage();
             this.tabPageVariables = new System.Windows.Forms.TabPage();
@@ -146,13 +183,16 @@
             this.labelCustomCommand = new System.Windows.Forms.Label();
             this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.buttonDisconnect = new System.Windows.Forms.Button();
+            this.buttonMoveToStop = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageMotion.SuspendLayout();
+            this.tabPageMoveTo.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.tabPageProgram.SuspendLayout();
             this.tabPageCommands.SuspendLayout();
             this.tabPageVariables.SuspendLayout();
@@ -180,6 +220,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Remote Control";
+            // 
+            // buttonDisconnect
+            // 
+            this.buttonDisconnect.Location = new System.Drawing.Point(9, 104);
+            this.buttonDisconnect.Name = "buttonDisconnect";
+            this.buttonDisconnect.Size = new System.Drawing.Size(131, 43);
+            this.buttonDisconnect.TabIndex = 3;
+            this.buttonDisconnect.Text = "Disconnect";
+            this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
             // 
             // labelConnectionStatus
             // 
@@ -1166,6 +1216,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPageMotion);
+            this.tabControl1.Controls.Add(this.tabPageMoveTo);
             this.tabControl1.Controls.Add(this.tabPageProgram);
             this.tabControl1.Controls.Add(this.tabPageCommands);
             this.tabControl1.Controls.Add(this.tabPageVariables);
@@ -1210,6 +1261,358 @@
             this.tabPageMotion.TabIndex = 0;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
+            // 
+            // tabPageMoveTo
+            // 
+            this.tabPageMoveTo.Controls.Add(this.buttonMoveToStop);
+            this.tabPageMoveTo.Controls.Add(this.groupBox5);
+            this.tabPageMoveTo.Controls.Add(this.groupBox4);
+            this.tabPageMoveTo.Location = new System.Drawing.Point(4, 25);
+            this.tabPageMoveTo.Name = "tabPageMoveTo";
+            this.tabPageMoveTo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMoveTo.Size = new System.Drawing.Size(614, 384);
+            this.tabPageMoveTo.TabIndex = 6;
+            this.tabPageMoveTo.Text = "Move To";
+            this.tabPageMoveTo.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label33);
+            this.groupBox5.Controls.Add(this.tbMoveToVelMms);
+            this.groupBox5.Controls.Add(this.buttonMoveToRelativeTool);
+            this.groupBox5.Controls.Add(this.buttonMoveToRelativeBase);
+            this.groupBox5.Controls.Add(this.buttonMoveToCart);
+            this.groupBox5.Controls.Add(this.label26);
+            this.groupBox5.Controls.Add(this.tbMoveToC);
+            this.groupBox5.Controls.Add(this.label27);
+            this.groupBox5.Controls.Add(this.tbMoveToB);
+            this.groupBox5.Controls.Add(this.label28);
+            this.groupBox5.Controls.Add(this.tbMoveToA);
+            this.groupBox5.Controls.Add(this.label29);
+            this.groupBox5.Controls.Add(this.tbMoveToZ);
+            this.groupBox5.Controls.Add(this.label30);
+            this.groupBox5.Controls.Add(this.tbMoveToY);
+            this.groupBox5.Controls.Add(this.label31);
+            this.groupBox5.Controls.Add(this.tbMoveToX);
+            this.groupBox5.Location = new System.Drawing.Point(216, 7);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(200, 371);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Cartesian";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(30, 222);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(65, 17);
+            this.label33.TabIndex = 29;
+            this.label33.Text = "Vel mm/s";
+            // 
+            // tbMoveToVelMms
+            // 
+            this.tbMoveToVelMms.Location = new System.Drawing.Point(103, 219);
+            this.tbMoveToVelMms.Name = "tbMoveToVelMms";
+            this.tbMoveToVelMms.Size = new System.Drawing.Size(50, 22);
+            this.tbMoveToVelMms.TabIndex = 28;
+            this.tbMoveToVelMms.Text = "100";
+            // 
+            // buttonMoveToRelativeTool
+            // 
+            this.buttonMoveToRelativeTool.Location = new System.Drawing.Point(22, 321);
+            this.buttonMoveToRelativeTool.Name = "buttonMoveToRelativeTool";
+            this.buttonMoveToRelativeTool.Size = new System.Drawing.Size(157, 26);
+            this.buttonMoveToRelativeTool.TabIndex = 27;
+            this.buttonMoveToRelativeTool.Text = "Move relative tool";
+            this.buttonMoveToRelativeTool.UseVisualStyleBackColor = true;
+            this.buttonMoveToRelativeTool.Click += new System.EventHandler(this.buttonMoveToRelativeTool_Click);
+            // 
+            // buttonMoveToRelativeBase
+            // 
+            this.buttonMoveToRelativeBase.Location = new System.Drawing.Point(22, 287);
+            this.buttonMoveToRelativeBase.Name = "buttonMoveToRelativeBase";
+            this.buttonMoveToRelativeBase.Size = new System.Drawing.Size(157, 28);
+            this.buttonMoveToRelativeBase.TabIndex = 26;
+            this.buttonMoveToRelativeBase.Text = "Move relative base";
+            this.buttonMoveToRelativeBase.UseVisualStyleBackColor = true;
+            this.buttonMoveToRelativeBase.Click += new System.EventHandler(this.buttonMoveToRelativeBase_Click);
+            // 
+            // buttonMoveToCart
+            // 
+            this.buttonMoveToCart.Location = new System.Drawing.Point(22, 253);
+            this.buttonMoveToCart.Name = "buttonMoveToCart";
+            this.buttonMoveToCart.Size = new System.Drawing.Size(157, 28);
+            this.buttonMoveToCart.TabIndex = 25;
+            this.buttonMoveToCart.Text = "Move to coordinate";
+            this.buttonMoveToCart.UseVisualStyleBackColor = true;
+            this.buttonMoveToCart.Click += new System.EventHandler(this.buttonMoveToCart_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(30, 185);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(17, 17);
+            this.label26.TabIndex = 24;
+            this.label26.Text = "C";
+            // 
+            // tbMoveToC
+            // 
+            this.tbMoveToC.Location = new System.Drawing.Point(53, 182);
+            this.tbMoveToC.Name = "tbMoveToC";
+            this.tbMoveToC.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToC.TabIndex = 23;
+            this.tbMoveToC.Text = "0";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(30, 151);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(17, 17);
+            this.label27.TabIndex = 22;
+            this.label27.Text = "B";
+            // 
+            // tbMoveToB
+            // 
+            this.tbMoveToB.Location = new System.Drawing.Point(53, 148);
+            this.tbMoveToB.Name = "tbMoveToB";
+            this.tbMoveToB.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToB.TabIndex = 21;
+            this.tbMoveToB.Text = "0";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(30, 119);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(17, 17);
+            this.label28.TabIndex = 20;
+            this.label28.Text = "A";
+            // 
+            // tbMoveToA
+            // 
+            this.tbMoveToA.Location = new System.Drawing.Point(53, 116);
+            this.tbMoveToA.Name = "tbMoveToA";
+            this.tbMoveToA.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToA.TabIndex = 19;
+            this.tbMoveToA.Text = "0";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(30, 86);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(17, 17);
+            this.label29.TabIndex = 18;
+            this.label29.Text = "Z";
+            // 
+            // tbMoveToZ
+            // 
+            this.tbMoveToZ.Location = new System.Drawing.Point(53, 83);
+            this.tbMoveToZ.Name = "tbMoveToZ";
+            this.tbMoveToZ.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToZ.TabIndex = 17;
+            this.tbMoveToZ.Text = "0";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(30, 53);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(17, 17);
+            this.label30.TabIndex = 16;
+            this.label30.Text = "Y";
+            // 
+            // tbMoveToY
+            // 
+            this.tbMoveToY.Location = new System.Drawing.Point(53, 50);
+            this.tbMoveToY.Name = "tbMoveToY";
+            this.tbMoveToY.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToY.TabIndex = 15;
+            this.tbMoveToY.Text = "0";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(30, 24);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(17, 17);
+            this.label31.TabIndex = 14;
+            this.label31.Text = "X";
+            // 
+            // tbMoveToX
+            // 
+            this.tbMoveToX.Location = new System.Drawing.Point(53, 21);
+            this.tbMoveToX.Name = "tbMoveToX";
+            this.tbMoveToX.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToX.TabIndex = 13;
+            this.tbMoveToX.Text = "0";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label32);
+            this.groupBox4.Controls.Add(this.tbMoveToVelPerc);
+            this.groupBox4.Controls.Add(this.buttonMoveToRelativeJoint);
+            this.groupBox4.Controls.Add(this.buttonMoveToJoint);
+            this.groupBox4.Controls.Add(this.label25);
+            this.groupBox4.Controls.Add(this.tbMoveToJ6);
+            this.groupBox4.Controls.Add(this.label24);
+            this.groupBox4.Controls.Add(this.tbMoveToJ5);
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.tbMoveToJ4);
+            this.groupBox4.Controls.Add(this.label22);
+            this.groupBox4.Controls.Add(this.tbMoveToJ3);
+            this.groupBox4.Controls.Add(this.label20);
+            this.groupBox4.Controls.Add(this.tbMoveToJ2);
+            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.tbMoveToJ1);
+            this.groupBox4.Location = new System.Drawing.Point(16, 7);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(194, 371);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Joint";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(17, 222);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(44, 17);
+            this.label32.TabIndex = 16;
+            this.label32.Text = "Vel %";
+            // 
+            // tbMoveToVelPerc
+            // 
+            this.tbMoveToVelPerc.Location = new System.Drawing.Point(77, 219);
+            this.tbMoveToVelPerc.Name = "tbMoveToVelPerc";
+            this.tbMoveToVelPerc.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToVelPerc.TabIndex = 15;
+            this.tbMoveToVelPerc.Text = "100";
+            // 
+            // buttonMoveToRelativeJoint
+            // 
+            this.buttonMoveToRelativeJoint.Location = new System.Drawing.Point(20, 299);
+            this.buttonMoveToRelativeJoint.Name = "buttonMoveToRelativeJoint";
+            this.buttonMoveToRelativeJoint.Size = new System.Drawing.Size(157, 38);
+            this.buttonMoveToRelativeJoint.TabIndex = 14;
+            this.buttonMoveToRelativeJoint.Text = "Move relative joint";
+            this.buttonMoveToRelativeJoint.UseVisualStyleBackColor = true;
+            this.buttonMoveToRelativeJoint.Click += new System.EventHandler(this.buttonMoveToRelativeJoint_Click);
+            // 
+            // buttonMoveToJoint
+            // 
+            this.buttonMoveToJoint.Location = new System.Drawing.Point(20, 255);
+            this.buttonMoveToJoint.Name = "buttonMoveToJoint";
+            this.buttonMoveToJoint.Size = new System.Drawing.Size(157, 38);
+            this.buttonMoveToJoint.TabIndex = 13;
+            this.buttonMoveToJoint.Text = "Move to joint";
+            this.buttonMoveToJoint.UseVisualStyleBackColor = true;
+            this.buttonMoveToJoint.Click += new System.EventHandler(this.buttonMoveToJoint_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(17, 185);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(50, 17);
+            this.label25.TabIndex = 12;
+            this.label25.Text = "Joint 6";
+            // 
+            // tbMoveToJ6
+            // 
+            this.tbMoveToJ6.Location = new System.Drawing.Point(77, 182);
+            this.tbMoveToJ6.Name = "tbMoveToJ6";
+            this.tbMoveToJ6.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToJ6.TabIndex = 11;
+            this.tbMoveToJ6.Text = "0";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(17, 151);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(50, 17);
+            this.label24.TabIndex = 10;
+            this.label24.Text = "Joint 5";
+            // 
+            // tbMoveToJ5
+            // 
+            this.tbMoveToJ5.Location = new System.Drawing.Point(77, 148);
+            this.tbMoveToJ5.Name = "tbMoveToJ5";
+            this.tbMoveToJ5.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToJ5.TabIndex = 9;
+            this.tbMoveToJ5.Text = "0";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(17, 119);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(50, 17);
+            this.label23.TabIndex = 8;
+            this.label23.Text = "Joint 4";
+            // 
+            // tbMoveToJ4
+            // 
+            this.tbMoveToJ4.Location = new System.Drawing.Point(77, 116);
+            this.tbMoveToJ4.Name = "tbMoveToJ4";
+            this.tbMoveToJ4.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToJ4.TabIndex = 7;
+            this.tbMoveToJ4.Text = "0";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(17, 86);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(50, 17);
+            this.label22.TabIndex = 6;
+            this.label22.Text = "Joint 3";
+            // 
+            // tbMoveToJ3
+            // 
+            this.tbMoveToJ3.Location = new System.Drawing.Point(77, 83);
+            this.tbMoveToJ3.Name = "tbMoveToJ3";
+            this.tbMoveToJ3.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToJ3.TabIndex = 5;
+            this.tbMoveToJ3.Text = "0";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(17, 53);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(50, 17);
+            this.label20.TabIndex = 4;
+            this.label20.Text = "Joint 2";
+            // 
+            // tbMoveToJ2
+            // 
+            this.tbMoveToJ2.Location = new System.Drawing.Point(77, 50);
+            this.tbMoveToJ2.Name = "tbMoveToJ2";
+            this.tbMoveToJ2.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToJ2.TabIndex = 3;
+            this.tbMoveToJ2.Text = "0";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(17, 24);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(50, 17);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "Joint 1";
+            // 
+            // tbMoveToJ1
+            // 
+            this.tbMoveToJ1.Location = new System.Drawing.Point(77, 21);
+            this.tbMoveToJ1.Name = "tbMoveToJ1";
+            this.tbMoveToJ1.Size = new System.Drawing.Size(100, 22);
+            this.tbMoveToJ1.TabIndex = 0;
+            this.tbMoveToJ1.Text = "0";
             // 
             // tabPageProgram
             // 
@@ -1482,15 +1885,15 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "Enter a custom command:";
             // 
-            // buttonDisconnect
+            // buttonMoveToStop
             // 
-            this.buttonDisconnect.Location = new System.Drawing.Point(9, 104);
-            this.buttonDisconnect.Name = "buttonDisconnect";
-            this.buttonDisconnect.Size = new System.Drawing.Size(131, 43);
-            this.buttonDisconnect.TabIndex = 3;
-            this.buttonDisconnect.Text = "Disconnect";
-            this.buttonDisconnect.UseVisualStyleBackColor = true;
-            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
+            this.buttonMoveToStop.Location = new System.Drawing.Point(435, 260);
+            this.buttonMoveToStop.Name = "buttonMoveToStop";
+            this.buttonMoveToStop.Size = new System.Drawing.Size(164, 40);
+            this.buttonMoveToStop.TabIndex = 2;
+            this.buttonMoveToStop.Text = "Stop";
+            this.buttonMoveToStop.UseVisualStyleBackColor = true;
+            this.buttonMoveToStop.Click += new System.EventHandler(this.buttonMoveToStop_Click);
             // 
             // Form1
             // 
@@ -1516,6 +1919,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageMotion.ResumeLayout(false);
             this.tabPageMotion.PerformLayout();
+            this.tabPageMoveTo.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabPageProgram.ResumeLayout(false);
             this.tabPageCommands.ResumeLayout(false);
             this.tabPageVariables.ResumeLayout(false);
@@ -1649,6 +2057,43 @@
         private System.Windows.Forms.TextBox textBoxCustomCommand;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button buttonDisconnect;
+        private System.Windows.Forms.TabPage tabPageMoveTo;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox tbMoveToJ6;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox tbMoveToJ5;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox tbMoveToJ4;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox tbMoveToJ3;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tbMoveToJ2;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox tbMoveToJ1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button buttonMoveToRelativeTool;
+        private System.Windows.Forms.Button buttonMoveToRelativeBase;
+        private System.Windows.Forms.Button buttonMoveToCart;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox tbMoveToC;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox tbMoveToB;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox tbMoveToA;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox tbMoveToZ;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox tbMoveToY;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox tbMoveToX;
+        private System.Windows.Forms.Button buttonMoveToRelativeJoint;
+        private System.Windows.Forms.Button buttonMoveToJoint;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox tbMoveToVelMms;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox tbMoveToVelPerc;
+        private System.Windows.Forms.Button buttonMoveToStop;
     }
 }
 

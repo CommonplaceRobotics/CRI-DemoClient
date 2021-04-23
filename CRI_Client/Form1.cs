@@ -634,5 +634,10 @@ namespace CRI_Client
             string userCommand = ((TextBox)textBoxCustomCommand).Text;
             labelCustomCommand.Text = "Command: \"CRISTART 123 " + userCommand + " CRIEND\"";
         }
+
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+            itf.Disconnect();
+        }
     }
 }

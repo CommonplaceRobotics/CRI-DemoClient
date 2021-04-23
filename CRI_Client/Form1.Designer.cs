@@ -142,10 +142,11 @@
             this.label12 = new System.Windows.Forms.Label();
             this.tabPageReferencing = new System.Windows.Forms.TabPage();
             this.tabPageCustom = new System.Windows.Forms.TabPage();
-            this.label19 = new System.Windows.Forms.Label();
-            this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
-            this.labelCustomCommand = new System.Windows.Forms.Label();
             this.buttonSendCustomCommand = new System.Windows.Forms.Button();
+            this.labelCustomCommand = new System.Windows.Forms.Label();
+            this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.buttonDisconnect = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -165,6 +166,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonDisconnect);
             this.groupBox1.Controls.Add(this.labelConnectionStatus);
             this.groupBox1.Controls.Add(this.textBoxIPAddress);
             this.groupBox1.Controls.Add(this.buttonStartTinyCtrl);
@@ -182,7 +184,7 @@
             // labelConnectionStatus
             // 
             this.labelConnectionStatus.AutoSize = true;
-            this.labelConnectionStatus.Location = new System.Drawing.Point(4, 101);
+            this.labelConnectionStatus.Location = new System.Drawing.Point(6, 150);
             this.labelConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelConnectionStatus.Name = "labelConnectionStatus";
             this.labelConnectionStatus.Size = new System.Drawing.Size(146, 17);
@@ -1444,22 +1446,15 @@
             this.tabPageCustom.Text = "Custom";
             this.tabPageCustom.UseVisualStyleBackColor = true;
             // 
-            // label19
+            // buttonSendCustomCommand
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(25, 27);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(172, 17);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "Enter a custom command:";
-            // 
-            // textBoxCustomCommand
-            // 
-            this.textBoxCustomCommand.Location = new System.Drawing.Point(28, 54);
-            this.textBoxCustomCommand.Name = "textBoxCustomCommand";
-            this.textBoxCustomCommand.Size = new System.Drawing.Size(571, 22);
-            this.textBoxCustomCommand.TabIndex = 1;
-            this.textBoxCustomCommand.TextChanged += new System.EventHandler(this.textBoxCustomCommand_TextChanged);
+            this.buttonSendCustomCommand.Location = new System.Drawing.Point(28, 103);
+            this.buttonSendCustomCommand.Name = "buttonSendCustomCommand";
+            this.buttonSendCustomCommand.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendCustomCommand.TabIndex = 3;
+            this.buttonSendCustomCommand.Text = "Send";
+            this.buttonSendCustomCommand.UseVisualStyleBackColor = true;
+            this.buttonSendCustomCommand.Click += new System.EventHandler(this.buttonSendCustomCommand_Click);
             // 
             // labelCustomCommand
             // 
@@ -1470,15 +1465,32 @@
             this.labelCustomCommand.TabIndex = 2;
             this.labelCustomCommand.Text = "Command: \"CRISTART 123 CRIEND\"";
             // 
-            // buttonSendCustomCommand
+            // textBoxCustomCommand
             // 
-            this.buttonSendCustomCommand.Location = new System.Drawing.Point(28, 103);
-            this.buttonSendCustomCommand.Name = "buttonSendCustomCommand";
-            this.buttonSendCustomCommand.Size = new System.Drawing.Size(75, 23);
-            this.buttonSendCustomCommand.TabIndex = 3;
-            this.buttonSendCustomCommand.Text = "Send";
-            this.buttonSendCustomCommand.UseVisualStyleBackColor = true;
-            this.buttonSendCustomCommand.Click += new System.EventHandler(this.buttonSendCustomCommand_Click);
+            this.textBoxCustomCommand.Location = new System.Drawing.Point(28, 54);
+            this.textBoxCustomCommand.Name = "textBoxCustomCommand";
+            this.textBoxCustomCommand.Size = new System.Drawing.Size(571, 22);
+            this.textBoxCustomCommand.TabIndex = 1;
+            this.textBoxCustomCommand.TextChanged += new System.EventHandler(this.textBoxCustomCommand_TextChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(25, 27);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(172, 17);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Enter a custom command:";
+            // 
+            // buttonDisconnect
+            // 
+            this.buttonDisconnect.Location = new System.Drawing.Point(9, 104);
+            this.buttonDisconnect.Name = "buttonDisconnect";
+            this.buttonDisconnect.Size = new System.Drawing.Size(131, 43);
+            this.buttonDisconnect.TabIndex = 3;
+            this.buttonDisconnect.Text = "Disconnect";
+            this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
             // 
             // Form1
             // 
@@ -1636,6 +1648,7 @@
         private System.Windows.Forms.Label labelCustomCommand;
         private System.Windows.Forms.TextBox textBoxCustomCommand;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button buttonDisconnect;
     }
 }
 

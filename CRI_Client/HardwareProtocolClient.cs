@@ -185,7 +185,10 @@ namespace CRI_Client
             {
                 log.ErrorFormat("CRI write loop: {0}", ex.Message);
             }
+            itf.flagConnected = false;
             itf.flagThreadWriteRunning = false;
+            itf.flagStopRequest = true;
+            itf.writeThread = null;
         }
 
 
@@ -266,7 +269,9 @@ namespace CRI_Client
             }
 
             itf.flagConnected = false;
-            itf.flagThreadReadRunning = false;            
+            itf.flagThreadReadRunning = false;
+            itf.flagStopRequest = true;
+            itf.commThread = null;
             return;
         }
     
@@ -307,7 +312,7 @@ namespace CRI_Client
             }
             else
             {
-                string msg = "Cannot reconnect - aready connected!";
+                string msg = "Cannot reconnect - already connected!";
                 log.ErrorFormat(msg);
                 //System.Windows.Forms.MessageBox.Show(msg, "Connection Error");
             }

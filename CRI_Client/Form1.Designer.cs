@@ -123,6 +123,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
             this.tabPageMoveTo = new System.Windows.Forms.TabPage();
+            this.buttonMoveToStop = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label33 = new System.Windows.Forms.Label();
             this.tbMoveToVelMms = new System.Windows.Forms.TextBox();
@@ -183,7 +184,8 @@
             this.labelCustomCommand = new System.Windows.Forms.Label();
             this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.buttonMoveToStop = new System.Windows.Forms.Button();
+            this.buttonSetActive = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -206,6 +208,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label34);
+            this.groupBox1.Controls.Add(this.buttonSetActive);
             this.groupBox1.Controls.Add(this.buttonDisconnect);
             this.groupBox1.Controls.Add(this.labelConnectionStatus);
             this.groupBox1.Controls.Add(this.textBoxIPAddress);
@@ -1275,6 +1279,16 @@
             this.tabPageMoveTo.Text = "Move To";
             this.tabPageMoveTo.UseVisualStyleBackColor = true;
             // 
+            // buttonMoveToStop
+            // 
+            this.buttonMoveToStop.Location = new System.Drawing.Point(435, 260);
+            this.buttonMoveToStop.Name = "buttonMoveToStop";
+            this.buttonMoveToStop.Size = new System.Drawing.Size(164, 40);
+            this.buttonMoveToStop.TabIndex = 2;
+            this.buttonMoveToStop.Text = "Stop";
+            this.buttonMoveToStop.UseVisualStyleBackColor = true;
+            this.buttonMoveToStop.Click += new System.EventHandler(this.buttonMoveToStop_Click);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.label33);
@@ -1885,15 +1899,24 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "Enter a custom command:";
             // 
-            // buttonMoveToStop
+            // buttonSetActive
             // 
-            this.buttonMoveToStop.Location = new System.Drawing.Point(435, 260);
-            this.buttonMoveToStop.Name = "buttonMoveToStop";
-            this.buttonMoveToStop.Size = new System.Drawing.Size(164, 40);
-            this.buttonMoveToStop.TabIndex = 2;
-            this.buttonMoveToStop.Text = "Stop";
-            this.buttonMoveToStop.UseVisualStyleBackColor = true;
-            this.buttonMoveToStop.Click += new System.EventHandler(this.buttonMoveToStop_Click);
+            this.buttonSetActive.Location = new System.Drawing.Point(9, 221);
+            this.buttonSetActive.Name = "buttonSetActive";
+            this.buttonSetActive.Size = new System.Drawing.Size(132, 42);
+            this.buttonSetActive.TabIndex = 5;
+            this.buttonSetActive.Text = "Set Active";
+            this.buttonSetActive.UseVisualStyleBackColor = true;
+            this.buttonSetActive.Click += new System.EventHandler(this.buttonSetActive_Click);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(8, 198);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(78, 17);
+            this.label34.TabIndex = 6;
+            this.label34.Text = "Multi client:";
             // 
             // Form1
             // 
@@ -1906,7 +1929,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "CPR Robot Interface - Demo Client V3.1 from July 2nd, 2020";
+            this.Text = "CPR Robot Interface - Demo Client V3.2 from May 12th, 2021";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -2094,6 +2117,8 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox tbMoveToVelPerc;
         private System.Windows.Forms.Button buttonMoveToStop;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Button buttonSetActive;
     }
 }
 

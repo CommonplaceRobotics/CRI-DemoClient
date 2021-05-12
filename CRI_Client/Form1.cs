@@ -1,15 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using log4net;
 
 
 // Configure log4net using the .config file
@@ -25,11 +16,10 @@ namespace CRI_Client
     public partial class Form1 : Form
     {
 
-
         // Create a logger for use in this class
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
-        HardwareProtocolClient itf;
+        readonly HardwareProtocolClient itf;
 
         double[] jogValues = new double[9];     // 6 for the robot arm, 3 for the gripper - joint or cartesian [-100..100] 
         
@@ -42,11 +32,7 @@ namespace CRI_Client
             System.Globalization.CultureInfo culInf = new System.Globalization.CultureInfo("en-US");
             Application.CurrentCulture = culInf;
 
-            //string ipAddress = "127.0.0.1";           // local host
             string ipAddress = "192.168.3.11";          // remote computer with TinyCtrl
-            //string ipAddress = "172.17.165.161";      // WSL
-
-
             textBoxIPAddress.Text = ipAddress;
 
             buttonJogXPlus.Text = "A1+"; buttonJogXMinus.Text = "A1-";
@@ -62,21 +48,13 @@ namespace CRI_Client
             log.Info("CPR CRI test client");
 
 
-            itf = new HardwareProtocolClient();
-            
+            itf = new HardwareProtocolClient();   
         }
 
 
         //***************************************************************
         private void timer1_Tick(object sender, EventArgs e)
         {
-
-            //log.Debug("Test");
-
-            //Jog-Werte an das Interface weiterreichen
-            //itf.SetJogValues(jogValues);
-            //itf.SendPos();
-           
             if (itf.flagConnected)
                 labelConnectionStatus.Text = "Connected";
             else
@@ -138,7 +116,7 @@ namespace CRI_Client
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ;
             }
@@ -713,6 +691,11 @@ namespace CRI_Client
         private void buttonMoveToStop_Click(object sender, EventArgs e)
         {
             itf.SendCommand("CMD Move Stop");
+        }
+
+        private void buttonSetActive_Click(object sender, EventArgs e)
+        {
+            itf.SendCommand("CMD SetActive true");
         }
     }
 }

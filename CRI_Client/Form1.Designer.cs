@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.buttonSetActive = new System.Windows.Forms.Button();
             this.buttonDisconnect = new System.Windows.Forms.Button();
             this.labelConnectionStatus = new System.Windows.Forms.Label();
             this.textBoxIPAddress = new System.Windows.Forms.TextBox();
@@ -184,8 +186,6 @@
             this.labelCustomCommand = new System.Windows.Forms.Label();
             this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.buttonSetActive = new System.Windows.Forms.Button();
-            this.label34 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -225,6 +225,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Remote Control";
             // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(8, 198);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(71, 16);
+            this.label34.TabIndex = 6;
+            this.label34.Text = "Multi client:";
+            // 
+            // buttonSetActive
+            // 
+            this.buttonSetActive.Location = new System.Drawing.Point(9, 221);
+            this.buttonSetActive.Name = "buttonSetActive";
+            this.buttonSetActive.Size = new System.Drawing.Size(132, 42);
+            this.buttonSetActive.TabIndex = 5;
+            this.buttonSetActive.Text = "Set Active";
+            this.buttonSetActive.UseVisualStyleBackColor = true;
+            this.buttonSetActive.Click += new System.EventHandler(this.buttonSetActive_Click);
+            // 
             // buttonDisconnect
             // 
             this.buttonDisconnect.Location = new System.Drawing.Point(9, 104);
@@ -241,7 +260,7 @@
             this.labelConnectionStatus.Location = new System.Drawing.Point(6, 150);
             this.labelConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelConnectionStatus.Name = "labelConnectionStatus";
-            this.labelConnectionStatus.Size = new System.Drawing.Size(146, 17);
+            this.labelConnectionStatus.Size = new System.Drawing.Size(134, 16);
             this.labelConnectionStatus.TabIndex = 2;
             this.labelConnectionStatus.Text = "Status: not connected";
             // 
@@ -293,7 +312,7 @@
             this.labelError789.Location = new System.Drawing.Point(11, 122);
             this.labelError789.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelError789.Name = "labelError789";
-            this.labelError789.Size = new System.Drawing.Size(29, 17);
+            this.labelError789.Size = new System.Drawing.Size(25, 16);
             this.labelError789.TabIndex = 5;
             this.labelError789.Text = "7-9";
             // 
@@ -303,7 +322,7 @@
             this.labelError456.Location = new System.Drawing.Point(11, 106);
             this.labelError456.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelError456.Name = "labelError456";
-            this.labelError456.Size = new System.Drawing.Size(29, 17);
+            this.labelError456.Size = new System.Drawing.Size(25, 16);
             this.labelError456.TabIndex = 4;
             this.labelError456.Text = "4-6";
             // 
@@ -313,7 +332,7 @@
             this.labelError123.Location = new System.Drawing.Point(11, 90);
             this.labelError123.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelError123.Name = "labelError123";
-            this.labelError123.Size = new System.Drawing.Size(29, 17);
+            this.labelError123.Size = new System.Drawing.Size(25, 16);
             this.labelError123.TabIndex = 3;
             this.labelError123.Text = "1-3";
             // 
@@ -323,7 +342,7 @@
             this.labelErrorStatus.Location = new System.Drawing.Point(11, 64);
             this.labelErrorStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelErrorStatus.Name = "labelErrorStatus";
-            this.labelErrorStatus.Size = new System.Drawing.Size(68, 17);
+            this.labelErrorStatus.Size = new System.Drawing.Size(61, 16);
             this.labelErrorStatus.TabIndex = 2;
             this.labelErrorStatus.Text = "Error: n/a";
             // 
@@ -394,7 +413,7 @@
             this.checkBoxHideFurtherStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxHideFurtherStatusMessages.Location = new System.Drawing.Point(194, 79);
             this.checkBoxHideFurtherStatusMessages.Name = "checkBoxHideFurtherStatusMessages";
-            this.checkBoxHideFurtherStatusMessages.Size = new System.Drawing.Size(244, 21);
+            this.checkBoxHideFurtherStatusMessages.Size = new System.Drawing.Size(228, 20);
             this.checkBoxHideFurtherStatusMessages.TabIndex = 17;
             this.checkBoxHideFurtherStatusMessages.Text = "Hide incoming further status msgs";
             this.checkBoxHideFurtherStatusMessages.UseVisualStyleBackColor = true;
@@ -405,7 +424,7 @@
             this.checkBoxHideUnknownMessages.AutoSize = true;
             this.checkBoxHideUnknownMessages.Location = new System.Drawing.Point(194, 106);
             this.checkBoxHideUnknownMessages.Name = "checkBoxHideUnknownMessages";
-            this.checkBoxHideUnknownMessages.Size = new System.Drawing.Size(216, 21);
+            this.checkBoxHideUnknownMessages.Size = new System.Drawing.Size(206, 20);
             this.checkBoxHideUnknownMessages.TabIndex = 16;
             this.checkBoxHideUnknownMessages.Text = "Hide incoming unknown msgs";
             this.checkBoxHideUnknownMessages.UseVisualStyleBackColor = true;
@@ -418,7 +437,7 @@
             this.checkBoxHideStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxHideStatusMessages.Location = new System.Drawing.Point(194, 52);
             this.checkBoxHideStatusMessages.Name = "checkBoxHideStatusMessages";
-            this.checkBoxHideStatusMessages.Size = new System.Drawing.Size(235, 21);
+            this.checkBoxHideStatusMessages.Size = new System.Drawing.Size(225, 20);
             this.checkBoxHideStatusMessages.TabIndex = 15;
             this.checkBoxHideStatusMessages.Text = "Hide incoming basic status msgs";
             this.checkBoxHideStatusMessages.UseVisualStyleBackColor = true;
@@ -431,7 +450,7 @@
             this.checkBoxHideAliveMessages.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxHideAliveMessages.Location = new System.Drawing.Point(194, 24);
             this.checkBoxHideAliveMessages.Name = "checkBoxHideAliveMessages";
-            this.checkBoxHideAliveMessages.Size = new System.Drawing.Size(170, 21);
+            this.checkBoxHideAliveMessages.Size = new System.Drawing.Size(162, 20);
             this.checkBoxHideAliveMessages.TabIndex = 14;
             this.checkBoxHideAliveMessages.Text = "Hide alive m going out";
             this.checkBoxHideAliveMessages.UseVisualStyleBackColor = true;
@@ -443,7 +462,7 @@
             this.labelCnt.Location = new System.Drawing.Point(9, 20);
             this.labelCnt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCnt.Name = "labelCnt";
-            this.labelCnt.Size = new System.Drawing.Size(33, 17);
+            this.labelCnt.Size = new System.Drawing.Size(29, 16);
             this.labelCnt.TabIndex = 13;
             this.labelCnt.Text = "Cnt:";
             // 
@@ -453,7 +472,7 @@
             this.labelEStop.Location = new System.Drawing.Point(9, 42);
             this.labelEStop.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEStop.Name = "labelEStop";
-            this.labelEStop.Size = new System.Drawing.Size(50, 17);
+            this.labelEStop.Size = new System.Drawing.Size(47, 16);
             this.labelEStop.TabIndex = 12;
             this.labelEStop.Text = "EStop:";
             // 
@@ -463,7 +482,7 @@
             this.labelPositionJointsCurrent.Location = new System.Drawing.Point(125, 171);
             this.labelPositionJointsCurrent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPositionJointsCurrent.Name = "labelPositionJointsCurrent";
-            this.labelPositionJointsCurrent.Size = new System.Drawing.Size(100, 17);
+            this.labelPositionJointsCurrent.Size = new System.Drawing.Size(90, 16);
             this.labelPositionJointsCurrent.TabIndex = 8;
             this.labelPositionJointsCurrent.Text = "Joints Current:";
             // 
@@ -473,7 +492,7 @@
             this.labelPositionCart.Location = new System.Drawing.Point(251, 170);
             this.labelPositionCart.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPositionCart.Name = "labelPositionCart";
-            this.labelPositionCart.Size = new System.Drawing.Size(62, 17);
+            this.labelPositionCart.Size = new System.Drawing.Size(58, 16);
             this.labelPositionCart.TabIndex = 6;
             this.labelPositionCart.Text = "Position:";
             // 
@@ -483,7 +502,7 @@
             this.labelPositionJoints.Location = new System.Drawing.Point(11, 171);
             this.labelPositionJoints.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPositionJoints.Name = "labelPositionJoints";
-            this.labelPositionJoints.Size = new System.Drawing.Size(106, 17);
+            this.labelPositionJoints.Size = new System.Drawing.Size(98, 16);
             this.labelPositionJoints.TabIndex = 6;
             this.labelPositionJoints.Text = "Joints SetPoint:";
             // 
@@ -493,7 +512,7 @@
             this.label11.Location = new System.Drawing.Point(20, 17);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(178, 34);
+            this.label11.Size = new System.Drawing.Size(166, 32);
             this.label11.TabIndex = 3;
             this.label11.Text = "Referencing only for some \r\nrobots, e.g. robolink";
             // 
@@ -525,7 +544,7 @@
             this.labelOverride.Location = new System.Drawing.Point(20, 335);
             this.labelOverride.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOverride.Name = "labelOverride";
-            this.labelOverride.Size = new System.Drawing.Size(71, 17);
+            this.labelOverride.Size = new System.Drawing.Size(65, 16);
             this.labelOverride.TabIndex = 7;
             this.labelOverride.Text = "Override: ";
             // 
@@ -535,7 +554,7 @@
             this.checkBoxCartTool.Location = new System.Drawing.Point(23, 73);
             this.checkBoxCartTool.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCartTool.Name = "checkBoxCartTool";
-            this.checkBoxCartTool.Size = new System.Drawing.Size(88, 21);
+            this.checkBoxCartTool.Size = new System.Drawing.Size(84, 20);
             this.checkBoxCartTool.TabIndex = 5;
             this.checkBoxCartTool.Text = "Cart Tool";
             this.checkBoxCartTool.UseVisualStyleBackColor = true;
@@ -547,7 +566,7 @@
             this.checkBoxCartBase.Location = new System.Drawing.Point(23, 48);
             this.checkBoxCartBase.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCartBase.Name = "checkBoxCartBase";
-            this.checkBoxCartBase.Size = new System.Drawing.Size(92, 21);
+            this.checkBoxCartBase.Size = new System.Drawing.Size(88, 20);
             this.checkBoxCartBase.TabIndex = 5;
             this.checkBoxCartBase.Text = "Cart Base";
             this.checkBoxCartBase.UseVisualStyleBackColor = true;
@@ -561,7 +580,7 @@
             this.checkBoxJoint.Location = new System.Drawing.Point(23, 23);
             this.checkBoxJoint.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxJoint.Name = "checkBoxJoint";
-            this.checkBoxJoint.Size = new System.Drawing.Size(60, 21);
+            this.checkBoxJoint.Size = new System.Drawing.Size(57, 20);
             this.checkBoxJoint.TabIndex = 5;
             this.checkBoxJoint.Text = "Joint";
             this.checkBoxJoint.UseVisualStyleBackColor = true;
@@ -758,7 +777,7 @@
             this.label3.Location = new System.Drawing.Point(29, 116);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 17);
+            this.label3.Size = new System.Drawing.Size(48, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Z [mm]";
             // 
@@ -778,7 +797,7 @@
             this.label2.Location = new System.Drawing.Point(29, 84);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 17);
+            this.label2.Size = new System.Drawing.Size(49, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Y [mm]";
             // 
@@ -788,7 +807,7 @@
             this.label13.Location = new System.Drawing.Point(32, 249);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(73, 17);
+            this.label13.Size = new System.Drawing.Size(71, 16);
             this.label13.TabIndex = 2;
             this.label13.Text = "Vel [mm/s]";
             // 
@@ -798,7 +817,7 @@
             this.label4.Location = new System.Drawing.Point(29, 52);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 17);
+            this.label4.Size = new System.Drawing.Size(48, 16);
             this.label4.TabIndex = 2;
             this.label4.Text = "X [mm]";
             // 
@@ -981,7 +1000,7 @@
             this.label10.Location = new System.Drawing.Point(12, 247);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 17);
+            this.label10.Size = new System.Drawing.Size(50, 16);
             this.label10.TabIndex = 2;
             this.label10.Text = "Vel [%]";
             // 
@@ -1001,7 +1020,7 @@
             this.label9.Location = new System.Drawing.Point(12, 206);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 17);
+            this.label9.Size = new System.Drawing.Size(36, 16);
             this.label9.TabIndex = 2;
             this.label9.Text = "J6 [°]";
             // 
@@ -1011,7 +1030,7 @@
             this.label8.Location = new System.Drawing.Point(12, 174);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 17);
+            this.label8.Size = new System.Drawing.Size(36, 16);
             this.label8.TabIndex = 2;
             this.label8.Text = "J5 [°]";
             // 
@@ -1021,7 +1040,7 @@
             this.label6.Location = new System.Drawing.Point(12, 110);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 17);
+            this.label6.Size = new System.Drawing.Size(36, 16);
             this.label6.TabIndex = 2;
             this.label6.Text = "J3 [°]";
             // 
@@ -1031,7 +1050,7 @@
             this.label7.Location = new System.Drawing.Point(12, 142);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 17);
+            this.label7.Size = new System.Drawing.Size(36, 16);
             this.label7.TabIndex = 2;
             this.label7.Text = "J4 [°]";
             // 
@@ -1041,7 +1060,7 @@
             this.label5.Location = new System.Drawing.Point(12, 78);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 17);
+            this.label5.Size = new System.Drawing.Size(36, 16);
             this.label5.TabIndex = 2;
             this.label5.Text = "J2 [°]";
             // 
@@ -1061,7 +1080,7 @@
             this.label1.Location = new System.Drawing.Point(12, 46);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 17);
+            this.label1.Size = new System.Drawing.Size(36, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "J1 [°]";
             // 
@@ -1101,7 +1120,7 @@
             this.checkBoxPlatform.Location = new System.Drawing.Point(23, 98);
             this.checkBoxPlatform.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxPlatform.Name = "checkBoxPlatform";
-            this.checkBoxPlatform.Size = new System.Drawing.Size(82, 21);
+            this.checkBoxPlatform.Size = new System.Drawing.Size(78, 20);
             this.checkBoxPlatform.TabIndex = 9;
             this.checkBoxPlatform.Text = "Platform";
             this.checkBoxPlatform.UseVisualStyleBackColor = true;
@@ -1167,7 +1186,7 @@
             this.checkBoxDout1.AutoSize = true;
             this.checkBoxDout1.Location = new System.Drawing.Point(346, 160);
             this.checkBoxDout1.Name = "checkBoxDout1";
-            this.checkBoxDout1.Size = new System.Drawing.Size(75, 21);
+            this.checkBoxDout1.Size = new System.Drawing.Size(69, 20);
             this.checkBoxDout1.TabIndex = 1;
             this.checkBoxDout1.Text = "DOut 1";
             this.checkBoxDout1.UseVisualStyleBackColor = true;
@@ -1178,7 +1197,7 @@
             this.checkBoxDOut0.AutoSize = true;
             this.checkBoxDOut0.Location = new System.Drawing.Point(346, 187);
             this.checkBoxDOut0.Name = "checkBoxDOut0";
-            this.checkBoxDOut0.Size = new System.Drawing.Size(75, 21);
+            this.checkBoxDOut0.Size = new System.Drawing.Size(69, 20);
             this.checkBoxDOut0.TabIndex = 0;
             this.checkBoxDOut0.Text = "DOut 0";
             this.checkBoxDOut0.UseVisualStyleBackColor = true;
@@ -1320,7 +1339,7 @@
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(30, 222);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(65, 17);
+            this.label33.Size = new System.Drawing.Size(63, 16);
             this.label33.TabIndex = 29;
             this.label33.Text = "Vel mm/s";
             // 
@@ -1367,7 +1386,7 @@
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(30, 185);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(17, 17);
+            this.label26.Size = new System.Drawing.Size(16, 16);
             this.label26.TabIndex = 24;
             this.label26.Text = "C";
             // 
@@ -1384,7 +1403,7 @@
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(30, 151);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(17, 17);
+            this.label27.Size = new System.Drawing.Size(16, 16);
             this.label27.TabIndex = 22;
             this.label27.Text = "B";
             // 
@@ -1401,7 +1420,7 @@
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(30, 119);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(17, 17);
+            this.label28.Size = new System.Drawing.Size(16, 16);
             this.label28.TabIndex = 20;
             this.label28.Text = "A";
             // 
@@ -1418,7 +1437,7 @@
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(30, 86);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(17, 17);
+            this.label29.Size = new System.Drawing.Size(15, 16);
             this.label29.TabIndex = 18;
             this.label29.Text = "Z";
             // 
@@ -1435,7 +1454,7 @@
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(30, 53);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(17, 17);
+            this.label30.Size = new System.Drawing.Size(16, 16);
             this.label30.TabIndex = 16;
             this.label30.Text = "Y";
             // 
@@ -1452,7 +1471,7 @@
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(30, 24);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(17, 17);
+            this.label31.Size = new System.Drawing.Size(15, 16);
             this.label31.TabIndex = 14;
             this.label31.Text = "X";
             // 
@@ -1494,7 +1513,7 @@
             this.label32.AutoSize = true;
             this.label32.Location = new System.Drawing.Point(17, 222);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(44, 17);
+            this.label32.Size = new System.Drawing.Size(42, 16);
             this.label32.TabIndex = 16;
             this.label32.Text = "Vel %";
             // 
@@ -1531,7 +1550,7 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(17, 185);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(50, 17);
+            this.label25.Size = new System.Drawing.Size(45, 16);
             this.label25.TabIndex = 12;
             this.label25.Text = "Joint 6";
             // 
@@ -1548,7 +1567,7 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(17, 151);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(50, 17);
+            this.label24.Size = new System.Drawing.Size(45, 16);
             this.label24.TabIndex = 10;
             this.label24.Text = "Joint 5";
             // 
@@ -1565,7 +1584,7 @@
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(17, 119);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(50, 17);
+            this.label23.Size = new System.Drawing.Size(45, 16);
             this.label23.TabIndex = 8;
             this.label23.Text = "Joint 4";
             // 
@@ -1582,7 +1601,7 @@
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(17, 86);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(50, 17);
+            this.label22.Size = new System.Drawing.Size(45, 16);
             this.label22.TabIndex = 6;
             this.label22.Text = "Joint 3";
             // 
@@ -1599,7 +1618,7 @@
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(17, 53);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(50, 17);
+            this.label20.Size = new System.Drawing.Size(45, 16);
             this.label20.TabIndex = 4;
             this.label20.Text = "Joint 2";
             // 
@@ -1616,7 +1635,7 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(17, 24);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(50, 17);
+            this.label21.Size = new System.Drawing.Size(45, 16);
             this.label21.TabIndex = 2;
             this.label21.Text = "Joint 1";
             // 
@@ -1700,7 +1719,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(224, 260);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(76, 17);
+            this.label18.Size = new System.Drawing.Size(69, 16);
             this.label18.TabIndex = 28;
             this.label18.Text = "Ext. Joints:";
             // 
@@ -1718,7 +1737,7 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(224, 223);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(85, 17);
+            this.label17.Size = new System.Drawing.Size(79, 16);
             this.label17.TabIndex = 26;
             this.label17.Text = "Cart Values:";
             // 
@@ -1747,7 +1766,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(224, 187);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 17);
+            this.label15.Size = new System.Drawing.Size(83, 16);
             this.label15.TabIndex = 23;
             this.label15.Text = "Joint Values:";
             // 
@@ -1776,7 +1795,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(284, 75);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(48, 17);
+            this.label16.Size = new System.Drawing.Size(45, 16);
             this.label16.TabIndex = 20;
             this.label16.Text = "Value:";
             // 
@@ -1805,7 +1824,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(224, 152);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 17);
+            this.label14.Size = new System.Drawing.Size(47, 16);
             this.label14.TabIndex = 15;
             this.label14.Text = "Name:";
             // 
@@ -1834,7 +1853,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(284, 34);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 17);
+            this.label12.Size = new System.Drawing.Size(47, 16);
             this.label12.TabIndex = 12;
             this.label12.Text = "Name:";
             // 
@@ -1878,7 +1897,7 @@
             this.labelCustomCommand.AutoSize = true;
             this.labelCustomCommand.Location = new System.Drawing.Point(25, 82);
             this.labelCustomCommand.Name = "labelCustomCommand";
-            this.labelCustomCommand.Size = new System.Drawing.Size(240, 17);
+            this.labelCustomCommand.Size = new System.Drawing.Size(231, 16);
             this.labelCustomCommand.TabIndex = 2;
             this.labelCustomCommand.Text = "Command: \"CRISTART 123 CRIEND\"";
             // 
@@ -1895,28 +1914,9 @@
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(25, 27);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(172, 17);
+            this.label19.Size = new System.Drawing.Size(161, 16);
             this.label19.TabIndex = 0;
             this.label19.Text = "Enter a custom command:";
-            // 
-            // buttonSetActive
-            // 
-            this.buttonSetActive.Location = new System.Drawing.Point(9, 221);
-            this.buttonSetActive.Name = "buttonSetActive";
-            this.buttonSetActive.Size = new System.Drawing.Size(132, 42);
-            this.buttonSetActive.TabIndex = 5;
-            this.buttonSetActive.Text = "Set Active";
-            this.buttonSetActive.UseVisualStyleBackColor = true;
-            this.buttonSetActive.Click += new System.EventHandler(this.buttonSetActive_Click);
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(8, 198);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(78, 17);
-            this.label34.TabIndex = 6;
-            this.label34.Text = "Multi client:";
             // 
             // Form1
             // 
@@ -1929,7 +1929,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "CPR Robot Interface - Demo Client V3.2 from May 12th, 2021";
+            this.Text = "CPR Robot Interface - Demo Client V3.3 from Dec 9th, 2021";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

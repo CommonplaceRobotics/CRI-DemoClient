@@ -446,6 +446,13 @@ namespace CRI_Client
                     return;
                 }
 
+                if(msgType == "OPINFO")
+                {
+                    if (!flagHideFurtherStatusMessages)
+                        log.DebugFormat("OPINFO state is: {0}", msg);
+                    return;
+                }
+
                 if (!flagHideUnknownMessages)
                 {
                     log.Info(msg);

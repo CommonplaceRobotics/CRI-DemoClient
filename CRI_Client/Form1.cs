@@ -21,7 +21,7 @@ namespace CRI_Client
         
         readonly HardwareProtocolClient itf;
 
-        double[] jogValues = new double[9];     // 6 for the robot arm, 3 for the gripper - joint or cartesian [-100..100] 
+        readonly double[] jogValues = new double[9];     // 6 for the robot arm, 3 for the gripper - joint or cartesian [-100..100] 
         
 
 
@@ -99,9 +99,9 @@ namespace CRI_Client
             
             labelOverride.Text = overrideString;
             labelErrorStatus.Text = itf.errorString;
-            labelError123.Text = "123: " + itf.errrorCodes[0] + " " + itf.errrorCodes[1] + " " + itf.errrorCodes[2];
-            labelError456.Text = "456: " + itf.errrorCodes[3] + " " + itf.errrorCodes[4] + " " + itf.errrorCodes[5];
-            labelError789.Text = "789: " + itf.errrorCodes[6] + " " + itf.errrorCodes[7] + " " + itf.errrorCodes[8];
+            labelError123.Text = "123: " + itf.errorCodes[0] + " " + itf.errorCodes[1] + " " + itf.errorCodes[2];
+            labelError456.Text = "456: " + itf.errorCodes[3] + " " + itf.errorCodes[4] + " " + itf.errorCodes[5];
+            labelError789.Text = "789: " + itf.errorCodes[6] + " " + itf.errorCodes[7] + " " + itf.errorCodes[8];
 
             // das LogMessage-Fenster am Boden updaten
             try
@@ -229,14 +229,12 @@ namespace CRI_Client
         }
 
 
-
         private void buttonJogStop_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 9; i++)
                 jogValues[i] = 0.0;
             itf.SetJogValues(jogValues);
         }
-
 
 
         private void buttonJogOverrideMinus_Click(object sender, EventArgs e)
@@ -266,11 +264,7 @@ namespace CRI_Client
             itf.SetJogValues(jogValues);
         }
 
-       
-
-
         #endregion
-
 
 
         private void buttonMoveRelativeSend_Click(object sender, EventArgs e)
@@ -400,15 +394,9 @@ namespace CRI_Client
             System.Threading.Thread.Sleep(10);
             msg = "CMD UploadFileFinish";
             itf.SendCommand(msg);
-            
-
-
         }
 
 
-
-
-       
 
         //*******************************************************************************
         // The three check boxes for Motion: joint, cartesian base and cartesian tool
@@ -556,8 +544,7 @@ namespace CRI_Client
         private void buttonSetNrVar_Click(object sender, EventArgs e)
         {
             string nm = textBoxVarNameNr.Text;
-            //float value = float.Parse(textBoxNrVarValue.Text);
-            string msg = "VAR SetVariableSingle " + nm + " " + textBoxNrVarValue.Text;//value;
+            string msg = "VAR SetVariableSingle " + nm + " " + textBoxNrVarValue.Text;
             itf.SendCommand(msg);
         }
 

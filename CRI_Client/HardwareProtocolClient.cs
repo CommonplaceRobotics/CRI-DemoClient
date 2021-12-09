@@ -3,22 +3,15 @@ using System.Text;
 using System.Threading;
 
 using System.Net.Sockets;
-using System.Net.NetworkInformation;    // fuer Ping
+using System.Net.NetworkInformation;    // for Ping
 using System.Diagnostics;
 
 
 
 namespace CRI_Client
 {
-    enum MotionType
-    {
-        jointMotion,
-        cartBaseMotion,
-        cartToolMotion
-    }   
-
     //***********************************************
-    // This class connects with a client on the specified IP adress, port 3920
+    // This class connects with a CRI client at the specified IP address, port 3920
     // Then it establishes functionality to act as a CRI interface client for Commonplace Robotics robot controller (TinyCtrl or CPRog)
     // Usage:
     // Including the class, then connecting, then sending commands.
@@ -33,18 +26,15 @@ namespace CRI_Client
         public static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public bool flagConnected = false;
-        bool flagStopTransmission = false;      // wird kurz auf true gesetzt um die Parameter zu übertragen. Stoppt die Joint-Übertragung
 
         public bool flagHideAliveMessages = true;
         public bool flagHideBasicStatusMessages = true;
         public bool flagHideFurtherStatusMessages = true;
         public bool flagHideUnknownMessages = false;
 
-        MotionType moType = MotionType.jointMotion;
-
         TcpClient clientSocket;
         NetworkStream serverStream;
-        string ipAdress;                       // Server address 
+        string ipAddress;                       // Server address 
         Thread commThread;
         Thread writeThread;
         bool flagStopRequest = false;
@@ -56,7 +46,7 @@ namespace CRI_Client
         public double[] posJointsCurrent = new double[9];
         public double[] posCartesian = new double[6];
         public string errorString = "n/a";
-        public int[] errrorCodes = new int[9];         // codes for 6 robot arm joints and 3 gripper joints
+        public int[] errorCodes = new int[9];           // error codes for 6 robot arm joints and 3 gripper joints
         public int supplyVoltage = 0;                   // in mV
         public int[] currentJoints = new int[9];        // in mA
         public int currentAll = 0;                      // in mA
@@ -66,7 +56,7 @@ namespace CRI_Client
         public int statusCnt = -1;
 
         //Information on the users commands
-        double[] jogValues = new double[9];
+        readonly double[] jogValues = new double[9];
 
         int sendCnt = 1;                                // counts the number of send messages [1 .. 9999]
         int cmdCnt = 20;                                // reference for the transmitted robot program commands
@@ -75,15 +65,8 @@ namespace CRI_Client
         //***********************************************************
         public HardwareProtocolClient()
         {
-            System.Globalization.CultureInfo culInf = new System.Globalization.CultureInfo("en-US");   // um Zahlen mit . zu trennen
-
             for (int i = 0; i < 9; i++)
-                errrorCodes[i] = -1;
-            return;
-        }
-
-        ~HardwareProtocolClient()
-        {
+                errorCodes[i] = -1;
         }
 
 
@@ -100,19 +83,16 @@ namespace CRI_Client
             while (flagThreadReadRunning || flagThreadWriteRunning)
                 System.Threading.Thread.Sleep(50);
             
-            if (serverStream != null)
-                serverStream.Close();
-            if (clientSocket != null)
-                clientSocket.Close();
+            serverStream?.Close();
+            clientSocket?.Close();
 
             log.Info("CRI communication stopped.");
-
         }
 
         //***********************************************************
         // Sets the server address
         public void SetIPAddress(string ipa){
-            ipAdress = ipa;
+            ipAddress = ipa;
         }
 
         //***********************************************************
@@ -121,7 +101,6 @@ namespace CRI_Client
         {
             try
             {
-                
                 for (int i = 0; i < 9; i++)
                 {
                     if (jValues[i] > 100.0) jValues[i] = 100.0;
@@ -129,10 +108,7 @@ namespace CRI_Client
                     this.jogValues[i] = jValues[i];
                 }
             }
-            catch (Exception ex)
-            {
-                ;
-            }
+            catch (Exception) { }
         }
 
         //***********************************************************
@@ -149,13 +125,11 @@ namespace CRI_Client
         // Sends a store part message
         public void SetStoreCmd(int[] from, int[] target, int hoehe)
         {
-
             string cmdString = "STORAGE 234 GETPART ";
             cmdString += from[0] + " " + from[1] + " " + from[2] + " ";
             cmdString += target[0] + " " + target[1] + " " + target[2] + " ";
             cmdString += hoehe;
             SendCommand(cmdString);
-
         }
 
 
@@ -203,15 +177,14 @@ namespace CRI_Client
             itf.flagThreadReadRunning = true;            
             try{
                 itf.clientSocket = new TcpClient();
-                itf.clientSocket.Connect(itf.ipAdress, 3920);       // establish a connection on port 3920
+                itf.clientSocket.Connect(itf.ipAddress, 3920);       // establish a connection on port 3920
                 itf.serverStream = itf.clientSocket.GetStream();
                 itf.serverStream.ReadTimeout = 100;
-                log.InfoFormat("Interface: connected to {0}", itf.ipAdress);
+                log.InfoFormat("Interface: connected to {0}", itf.ipAddress);
                 System.Threading.Thread.Sleep(100);
                 byte[] buffer = new byte[4096];
                 log.DebugFormat("ReadLoop started...");
 
-                int nr = 0;
                 while (!itf.flagStopRequest)                            // Main read loop
                 {
                     if (itf.serverStream.DataAvailable)
@@ -335,12 +308,9 @@ namespace CRI_Client
         /// </summary>
         public void SendCommand(string cmd, bool silent)
         {
-            if (!flagConnected || serverStream == null)
-            {
-                return;
-            }
+            if (!flagConnected || serverStream == null) return;
+            
             string msg = "CRISTART " + sendCnt.ToString() + " " + cmd + " CRIEND";
-          
             try
             {
                 byte[] outStream = Encoding.ASCII.GetBytes(msg);
@@ -351,14 +321,10 @@ namespace CRI_Client
                 if (sendCnt >= 10000)
                     sendCnt = 1;
 
-                if(!silent)
+                if (!silent)
                     log.Debug(msg);
-
             }
-            catch (Exception ex)
-            {
-                ;
-            }
+            catch (Exception) { }
      
         }
 
@@ -399,6 +365,7 @@ namespace CRI_Client
             return cmdCnt;
 
         }
+
         //*************************************************************
         public int SendAddWait(double sec)
         {
@@ -411,6 +378,7 @@ namespace CRI_Client
             return cmdCnt;
 
         }
+
         //*************************************************************
         public int SendAddGripper(double a1, double a2, double a3, double velpercent)
         {
@@ -424,11 +392,8 @@ namespace CRI_Client
             if (cmdCnt >= 10000)
                 cmdCnt = 0;
             return cmdCnt;
-
         }
 
-
-        
 
         //**********************************************************************************
         private void ParseString(string msg)
@@ -474,9 +439,9 @@ namespace CRI_Client
                     return;
                 }
 
-                if(msgType == "GSIG")
+                if (msgType == "GSIG")
                 {
-                    if(!flagHideFurtherStatusMessages)
+                    if (!flagHideFurtherStatusMessages)
                         log.DebugFormat("GSig state is: {0}", msg);
                     return;
                 }
@@ -486,19 +451,14 @@ namespace CRI_Client
                     log.Info(msg);
                 }
             }
-            catch (Exception ex)
-            {
-                ;
-            }
+            catch (Exception) { }
         }
 
 
 
         //**********************************************************************************
-        private void ParseStatusString(string msg){
-
-           
-            System.Globalization.CultureInfo culInf = new System.Globalization.CultureInfo("en-US");   // um Zahlen mit . zu trennen
+        private void ParseStatusString(string msg)
+        {
             try
             {
                 
@@ -522,49 +482,51 @@ namespace CRI_Client
                 string mode = parts[4];
                 int kinState = 0;
 
+                System.Globalization.CultureInfo culInf = System.Globalization.CultureInfo.InvariantCulture;
+
                 //robot arm set point values
-                posJointsSetPoint[0] = double.Parse(parts[6], culInf.NumberFormat);
-                posJointsSetPoint[1] = double.Parse(parts[7], culInf.NumberFormat);
-                posJointsSetPoint[2] = double.Parse(parts[8], culInf.NumberFormat);
-                posJointsSetPoint[3] = double.Parse(parts[9], culInf.NumberFormat);
-                posJointsSetPoint[4] = double.Parse(parts[10], culInf.NumberFormat);
-                posJointsSetPoint[5] = double.Parse(parts[11], culInf.NumberFormat);
+                posJointsSetPoint[0] = double.Parse(parts[6], culInf);
+                posJointsSetPoint[1] = double.Parse(parts[7], culInf);
+                posJointsSetPoint[2] = double.Parse(parts[8], culInf);
+                posJointsSetPoint[3] = double.Parse(parts[9], culInf);
+                posJointsSetPoint[4] = double.Parse(parts[10], culInf);
+                posJointsSetPoint[5] = double.Parse(parts[11], culInf);
                 // gripper
-                posJointsSetPoint[6] = double.Parse(parts[12], culInf.NumberFormat);
+                posJointsSetPoint[6] = double.Parse(parts[12], culInf);
                 // the other values are not read...
 
                 // robot arm physical values
-                posJointsCurrent[0] = double.Parse(parts[23], culInf.NumberFormat);
-                posJointsCurrent[1] = double.Parse(parts[24], culInf.NumberFormat);
-                posJointsCurrent[2] = double.Parse(parts[25], culInf.NumberFormat);
-                posJointsCurrent[3] = double.Parse(parts[26], culInf.NumberFormat);
-                posJointsCurrent[4] = double.Parse(parts[27], culInf.NumberFormat);
-                posJointsCurrent[5] = double.Parse(parts[28], culInf.NumberFormat);
+                posJointsCurrent[0] = double.Parse(parts[23], culInf);
+                posJointsCurrent[1] = double.Parse(parts[24], culInf);
+                posJointsCurrent[2] = double.Parse(parts[25], culInf);
+                posJointsCurrent[3] = double.Parse(parts[26], culInf);
+                posJointsCurrent[4] = double.Parse(parts[27], culInf);
+                posJointsCurrent[5] = double.Parse(parts[28], culInf);
                 // gripper
-                posJointsCurrent[6] = double.Parse(parts[29], culInf.NumberFormat);
+                posJointsCurrent[6] = double.Parse(parts[29], culInf);
                 
                 // cartesian position
-                posCartesian[0] = double.Parse(parts[40], culInf.NumberFormat);
-                posCartesian[1] = double.Parse(parts[41], culInf.NumberFormat);
-                posCartesian[2] = double.Parse(parts[42], culInf.NumberFormat);
-                posCartesian[3] = double.Parse(parts[43], culInf.NumberFormat);
-                posCartesian[4] = double.Parse(parts[44], culInf.NumberFormat);
-                posCartesian[5] = double.Parse(parts[45], culInf.NumberFormat);
+                posCartesian[0] = double.Parse(parts[40], culInf);
+                posCartesian[1] = double.Parse(parts[41], culInf);
+                posCartesian[2] = double.Parse(parts[42], culInf);
+                posCartesian[3] = double.Parse(parts[43], culInf);
+                posCartesian[4] = double.Parse(parts[44], culInf);
+                posCartesian[5] = double.Parse(parts[45], culInf);
 
                 overrideValue = float.Parse(parts[51]);
 
-                emergencyStopStatus = int.Parse(parts[57], culInf.NumberFormat);
-                supplyVoltage =  int.Parse(parts[59], culInf.NumberFormat);
-                currentAll =    int.Parse(parts[61], culInf.NumberFormat);
+                emergencyStopStatus = int.Parse(parts[57], culInf);
+                supplyVoltage =  int.Parse(parts[59], culInf);
+                currentAll =    int.Parse(parts[61], culInf);
                 
                 for (int i = 0; i < 9; i++)
-                    currentJoints[i] = int.Parse(parts[63+i], culInf.NumberFormat);
+                    currentJoints[i] = int.Parse(parts[63+i], culInf);
                 
                 errorString = parts[80];
                 for (int i = 0; i < 9; i++)
-                    errrorCodes[i] = int.Parse(parts[81 + i], culInf.NumberFormat);
+                    errorCodes[i] = int.Parse(parts[81 + i], culInf);
 
-                kinState = int.Parse(parts[98], culInf.NumberFormat);
+                kinState = int.Parse(parts[98], culInf);
 
             }
             catch (Exception ex)
@@ -591,33 +553,6 @@ namespace CRI_Client
             return flagConnected;
         }
 
-
-
-
-
-        //************************************************************+
-        public void wait(int ms)
-        {
-            DateTime start = DateTime.Now;
-            TimeSpan diff;
-            System.Diagnostics.Stopwatch stpw = new System.Diagnostics.Stopwatch();
-
-            stpw.Reset();
-            stpw.Start();
-
-            do
-            {
-                diff = stpw.Elapsed;
-                //            diff = DateTime.Now - start;
-            } while (diff.TotalMilliseconds < ms);
-
-            stpw.Stop();
-
-            return;
-
-        }
-
-
         //****************************************************************************
         // Ping to the target computer
         public bool Ping()
@@ -625,10 +560,10 @@ namespace CRI_Client
             bool res = false;
 
             string msg = "Ping for robot control on IP ";
-            msg += ipAdress;
+            msg += ipAddress;
 
             Ping Sender = new Ping();
-            PingReply Result = Sender.Send(ipAdress);
+            PingReply Result = Sender.Send(ipAddress);
             if (Result.Status == IPStatus.Success)
             {
                 res = true;
@@ -656,20 +591,20 @@ namespace CRI_Client
             // plink -ssh root@192.168.3.11 /home/root/TinyCtrl/startBatch.sh
             string progfn = "/home/root/TinyCtrl/startBatch.sh";
             //string args = "-ssh -pw password login@" + ipAdress + " " + progfn;
-            string args = "-ssh root@" + ipAdress + " " + progfn;
+            string args = "-ssh root@" + ipAddress + " " + progfn;
 
             try
             {
                 ProcessStartInfo start = new ProcessStartInfo();            // Prepare the process to run
                 start.Arguments = args;                                     // command line arguments
-                start.FileName = "plink.exe";                                // executable to run, including the complete path
+                start.FileName = "plink.exe";                               // executable to run, including the complete path
                 //start.WorkingDirectory = workingDirectory;
                 start.WindowStyle = ProcessWindowStyle.Normal;              //show a console window?
                 start.CreateNoWindow = true;
                 // Run the external process & wait for it to finish
                 Process proc = Process.Start(start);
                 proc.Close();
-//                proc.WaitForExit();
+                //proc.WaitForExit();
                 int result = proc.ExitCode;
                 log.InfoFormat("Starting remote controller: {0}", args);
                 log.InfoFormat("Result: {0}", result);
@@ -680,8 +615,6 @@ namespace CRI_Client
             }
             return res;
         }
-
-   
 
     }
 }

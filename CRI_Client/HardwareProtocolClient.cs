@@ -50,7 +50,8 @@ namespace CRI_Client
         public int supplyVoltage = 0;                   // in mV
         public int[] currentJoints = new int[9];        // in mA
         public int currentAll = 0;                      // in mA
-        public int digialInputs = 0;
+        public ulong digialInputs = 0;                  // bitfield
+        public ulong digialOutputs = 0;                 // bitfield
         public double overrideValue = 40.0;             // the robots override
         public int emergencyStopStatus = 0;             // Bit1: MainRelais Bit2: ES-Button Bit3: Periphery
         public int statusCnt = -1;
@@ -521,6 +522,10 @@ namespace CRI_Client
                 posCartesian[5] = double.Parse(parts[45], culInf);
 
                 overrideValue = float.Parse(parts[51]);
+
+                // DIO: 52 - 55
+                digialInputs = ulong.Parse(parts[53], culInf);
+                digialOutputs = ulong.Parse(parts[55], culInf);
 
                 emergencyStopStatus = int.Parse(parts[57], culInf);
                 supplyVoltage =  int.Parse(parts[59], culInf);

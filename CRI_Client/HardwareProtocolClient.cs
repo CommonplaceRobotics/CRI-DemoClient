@@ -414,8 +414,8 @@ namespace CRI_Client
                 }
 
 
-                // Program done: CRISTART sCnt PROGACK ref_to_cCnt ref_to_cmdCnt CRIEND
-                if ((msgType == "PROGACK"))
+                // Program done: CRISTART sCnt EXECACK cmdNr progNr CRIEND
+                if ((msgType == "EXECACK"))
                 {
                     log.DebugFormat("Program finished.................");
                 }

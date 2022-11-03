@@ -29,6 +29,7 @@ namespace CRI_Client
 
         public bool flagHideAliveMessages = true;
         public bool flagHideBasicStatusMessages = true;
+        public bool flagHidePlatformStatusMessages = true;
         public bool flagHideFurtherStatusMessages = true;
         public bool flagHideUnknownMessages = false;
 
@@ -417,40 +418,46 @@ namespace CRI_Client
                 // Program done: CRISTART sCnt EXECACK cmdNr progNr CRIEND
                 if ((msgType == "EXECACK"))
                 {
-                    log.DebugFormat("Program finished.................");
+                    log.Info("Program finished");
                 }
 
                 if (msgType == "VARINFO")
                 {
-                    log.DebugFormat("Variable information: {0}", msg);
+                    log.InfoFormat("Variable information: {0}", msg);
                     return;
                 }
 
                 if (msgType == "RUNSTATE")
                 {
                     if (!flagHideFurtherStatusMessages)
-                        log.DebugFormat("Program state is: {0}", msg);
+                        log.InfoFormat("Program state is: {0}", msg);
                     return;
                 }
 
                 if (msgType == "GRIPPERSTATE")
                 {
                     if (!flagHideFurtherStatusMessages)
-                        log.DebugFormat("Gripper state is: {0}", msg);
+                        log.InfoFormat("Gripper state is: {0}", msg);
                     return;
                 }
 
                 if (msgType == "GSIG")
                 {
                     if (!flagHideFurtherStatusMessages)
-                        log.DebugFormat("GSig state is: {0}", msg);
+                        log.InfoFormat("GSig state is: {0}", msg);
                     return;
                 }
 
                 if(msgType == "OPINFO")
                 {
                     if (!flagHideFurtherStatusMessages)
-                        log.DebugFormat("OPINFO state is: {0}", msg);
+                        log.InfoFormat("OPINFO state is: {0}", msg);
+                    return;
+                }
+
+                if(msgType == "PLATFORM")
+                {
+                    if (!flagHidePlatformStatusMessages) log.Info(msg);
                     return;
                 }
 

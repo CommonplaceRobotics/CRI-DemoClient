@@ -47,6 +47,7 @@
             this.buttonZeroJoints = new System.Windows.Forms.Button();
             this.buttonItfReset = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxHidePlatformMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxHideFurtherStatusMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxHideUnknownMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxHideStatusMessages = new System.Windows.Forms.CheckBox();
@@ -381,6 +382,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBoxHidePlatformMessages);
             this.groupBox2.Controls.Add(this.checkBoxHideFurtherStatusMessages);
             this.groupBox2.Controls.Add(this.checkBoxHideUnknownMessages);
             this.groupBox2.Controls.Add(this.checkBoxHideStatusMessages);
@@ -406,12 +408,25 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Status and Enabling";
             // 
+            // checkBoxHidePlatformMessages
+            // 
+            this.checkBoxHidePlatformMessages.AutoSize = true;
+            this.checkBoxHidePlatformMessages.Checked = true;
+            this.checkBoxHidePlatformMessages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHidePlatformMessages.Location = new System.Drawing.Point(194, 78);
+            this.checkBoxHidePlatformMessages.Name = "checkBoxHidePlatformMessages";
+            this.checkBoxHidePlatformMessages.Size = new System.Drawing.Size(240, 20);
+            this.checkBoxHidePlatformMessages.TabIndex = 18;
+            this.checkBoxHidePlatformMessages.Text = "Hide incoming platform status msgs";
+            this.checkBoxHidePlatformMessages.UseVisualStyleBackColor = true;
+            this.checkBoxHidePlatformMessages.CheckedChanged += new System.EventHandler(this.checkBoxHidePlatformMessages_CheckedChanged);
+            // 
             // checkBoxHideFurtherStatusMessages
             // 
             this.checkBoxHideFurtherStatusMessages.AutoSize = true;
             this.checkBoxHideFurtherStatusMessages.Checked = true;
             this.checkBoxHideFurtherStatusMessages.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHideFurtherStatusMessages.Location = new System.Drawing.Point(194, 79);
+            this.checkBoxHideFurtherStatusMessages.Location = new System.Drawing.Point(194, 104);
             this.checkBoxHideFurtherStatusMessages.Name = "checkBoxHideFurtherStatusMessages";
             this.checkBoxHideFurtherStatusMessages.Size = new System.Drawing.Size(228, 20);
             this.checkBoxHideFurtherStatusMessages.TabIndex = 17;
@@ -422,7 +437,7 @@
             // checkBoxHideUnknownMessages
             // 
             this.checkBoxHideUnknownMessages.AutoSize = true;
-            this.checkBoxHideUnknownMessages.Location = new System.Drawing.Point(194, 106);
+            this.checkBoxHideUnknownMessages.Location = new System.Drawing.Point(194, 130);
             this.checkBoxHideUnknownMessages.Name = "checkBoxHideUnknownMessages";
             this.checkBoxHideUnknownMessages.Size = new System.Drawing.Size(206, 20);
             this.checkBoxHideUnknownMessages.TabIndex = 16;
@@ -1929,7 +1944,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "CPR Robot Interface - Demo Client V3.3 from Dec 9th, 2021";
+            this.Text = "CPR Robot Interface - Demo Client V3.4 from Nov 3rd, 2022";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -2119,6 +2134,7 @@
         private System.Windows.Forms.Button buttonMoveToStop;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button buttonSetActive;
+        private System.Windows.Forms.CheckBox checkBoxHidePlatformMessages;
     }
 }
 

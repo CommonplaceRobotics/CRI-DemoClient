@@ -588,6 +588,11 @@ namespace CRI_Client
             itf.flagHideFurtherStatusMessages = checkBoxHideFurtherStatusMessages.Checked;
         }
 
+        private void checkBoxHidePlatformMessages_CheckedChanged(object sender, EventArgs e)
+        {
+            itf.flagHidePlatformStatusMessages = checkBoxHidePlatformMessages.Checked;
+        }
+
         private void buttonSendCustomCommand_Click(object sender, EventArgs e)
         {
             string userCommand = ((TextBox)textBoxCustomCommand).Text;
@@ -684,5 +689,6 @@ namespace CRI_Client
         {
             itf.SendCommand("CMD SetActive true");
         }
+
     }
 }

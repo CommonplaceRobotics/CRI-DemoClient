@@ -414,54 +414,62 @@ namespace CRI_Client
                     return;
                 }
 
-
                 // Program done: CRISTART sCnt EXECACK cmdNr progNr CRIEND
-                if ((msgType == "EXECACK"))
+                else if ((msgType == "EXECACK"))
                 {
                     log.Info("Program finished");
                 }
 
-                if (msgType == "VARINFO")
+                else if (msgType == "VARINFO")
                 {
                     log.InfoFormat("Variable information: {0}", msg);
-                    return;
                 }
 
-                if (msgType == "RUNSTATE")
+                else if (msgType == "RUNSTATE")
                 {
                     if (!flagHideFurtherStatusMessages)
                         log.InfoFormat("Program state is: {0}", msg);
-                    return;
                 }
 
-                if (msgType == "GRIPPERSTATE")
+                else if (msgType == "GRIPPERSTATE")
                 {
                     if (!flagHideFurtherStatusMessages)
                         log.InfoFormat("Gripper state is: {0}", msg);
-                    return;
                 }
 
-                if (msgType == "GSIG")
+                else if (msgType == "GSIG")
                 {
                     if (!flagHideFurtherStatusMessages)
                         log.InfoFormat("GSig state is: {0}", msg);
-                    return;
                 }
 
-                if(msgType == "OPINFO")
+                else if (msgType == "OPINFO") // operation info
                 {
                     if (!flagHideFurtherStatusMessages)
                         log.InfoFormat("OPINFO state is: {0}", msg);
-                    return;
                 }
 
-                if(msgType == "PLATFORM")
+                else if (msgType == "CYCLESTAT") // cycle statistics
+                {
+                    if (!flagHideFurtherStatusMessages) log.Info(msg);
+                }
+
+                else if (msgType == "VARIABLES") // variable updates
+                {
+                    if (!flagHideFurtherStatusMessages) log.Info(msg);
+                }
+
+                else if (msgType == "PLATFORM")
                 {
                     if (!flagHidePlatformStatusMessages) log.Info(msg);
-                    return;
                 }
 
-                if (!flagHideUnknownMessages)
+                else if (msgType == "LOGMSG") // log messages
+                {
+
+                }
+
+                else if (!flagHideUnknownMessages)
                 {
                     log.Info(msg);
                 }

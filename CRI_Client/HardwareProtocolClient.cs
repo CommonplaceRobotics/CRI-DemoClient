@@ -33,6 +33,11 @@ namespace CRI_Client
         public bool flagHideFurtherStatusMessages = true;
         public bool flagHideUnknownMessages = false;
 
+        /// <summary>
+        /// Version of the CRI protocol (TinyCtrl/CPRog/iRC V12/13 -> 16, RobotControl V14 -> 17)
+        /// </summary>
+        public int CRIVersion { get; private set; } = 17;
+
         TcpClient clientSocket;
         NetworkStream serverStream;
         string ipAddress;                       // Server address 
@@ -134,6 +139,13 @@ namespace CRI_Client
             SendCommand(cmdString);
         }
 
+        /// <summary>
+        /// Requests the CRI version
+        /// </summary>
+        private void RequestCRIVersion()
+        {
+            SendCommand("CMD GetVersion");
+        }
 
         //************** Thread Write Loop ****************************************
         /// <summary>
@@ -146,6 +158,9 @@ namespace CRI_Client
             itf.flagThreadWriteRunning = true;
             try
             {
+                // request the CRI version (not necessary if you only connect to a specific major robot control version)
+                itf.RequestCRIVersion();
+
                 while (!itf.flagStopRequest)
                 {
                     // this string should be 256 char long max, otherwise it may not be read completly
@@ -469,6 +484,27 @@ namespace CRI_Client
 
                 }
 
+                else if(msgType == "APP") // app messages
+                {
+                    if (!flagHideFurtherStatusMessages) log.Info(msg);
+                }
+
+                else if(msgType == "INFO") // info messages
+                {
+                    if (parts[3] == "Version")
+                    {
+                        if (int.TryParse(parts[5], out int criVersion))
+                        {
+                            CRIVersion = criVersion;
+                            log.InfoFormat("CRI version: {0}", CRIVersion);
+                        }
+                    }
+                    else
+                    {
+                        log.Info(msg);
+                    }
+                }
+
                 else if (!flagHideUnknownMessages)
                 {
                     log.Info(msg);
@@ -539,8 +575,18 @@ namespace CRI_Client
                 overrideValue = float.Parse(parts[51]);
 
                 // DIO: 52 - 55
-                digialInputs = ulong.Parse(parts[53], culInf);
-                digialOutputs = ulong.Parse(parts[55], culInf);
+                if (CRIVersion < 17)
+                {
+                    // until CRI V16 the DIO are sent as 64 bit decimal numbers
+                    digialInputs = ulong.Parse(parts[53], culInf);
+                    digialOutputs = ulong.Parse(parts[55], culInf);
+                }
+                else
+                {
+                    // since CRI V17 the DIO are sent as 64 bit hex numbers
+                    digialInputs = ulong.Parse(parts[53], System.Globalization.NumberStyles.HexNumber, culInf);
+                    digialOutputs = ulong.Parse(parts[55], System.Globalization.NumberStyles.HexNumber, culInf);
+                }
 
                 emergencyStopStatus = int.Parse(parts[57], culInf);
                 supplyVoltage =  int.Parse(parts[59], culInf);

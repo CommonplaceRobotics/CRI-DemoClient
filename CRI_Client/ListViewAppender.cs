@@ -7,7 +7,7 @@
 /// Drawbacks: nicht threadsave, der erste Aufruf (instanziierung) muss vom Log4net kommen.
 /// 
 /// </summary>
-class ListViewAppender : log4net.Appender.IAppender 
+class ListViewAppender : log4net.Appender.IAppender
 {
     public static ListViewAppender instance = null;
 
@@ -46,7 +46,7 @@ class ListViewAppender : log4net.Appender.IAppender
             if (indexWrite < 100)
             {
                 // msgArray[indexWrite] = loggingEvent.TimeStamp + "\t" + loggingEvent.Level + "\t" + loggingEvent.LoggerName + "\t" + loggingEvent.RenderedMessage;
-                msgArray[indexWrite] = loggingEvent.TimeStamp.Hour + ":" + loggingEvent.TimeStamp.Minute + ":" + loggingEvent.TimeStamp.Second + "." + loggingEvent.TimeStamp.Millisecond + "" +"\t" + loggingEvent.Level + "\t" + loggingEvent.RenderedMessage;
+                msgArray[indexWrite] = loggingEvent.TimeStamp.Hour + ":" + loggingEvent.TimeStamp.Minute + ":" + loggingEvent.TimeStamp.Second + "." + loggingEvent.TimeStamp.Millisecond + "" + "\t" + loggingEvent.Level + "\t" + loggingEvent.RenderedMessage;
                 indexWrite++;
                 if (indexWrite >= 100)
                     indexWrite = 0;
@@ -57,11 +57,11 @@ class ListViewAppender : log4net.Appender.IAppender
     }
 
 
-        /// <summary>
-        /// Provides the oldest message that has not been read. Storage is limited to 100 messages,
-        /// afterwards data loss.
-        /// </summary>
-        /// <returns></returns>
+    /// <summary>
+    /// Provides the oldest message that has not been read. Storage is limited to 100 messages,
+    /// afterwards data loss.
+    /// </summary>
+    /// <returns></returns>
     public string GetMessage()
     {
         // auch das Auslesen der Nachrichten erfolgt über den Ringpuffer mit

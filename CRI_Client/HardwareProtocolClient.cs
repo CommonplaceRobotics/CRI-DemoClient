@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Net.NetworkInformation;    // for Ping
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-
-using System.Net.Sockets;
-using System.Net.NetworkInformation;    // for Ping
-using System.Diagnostics;
-
-
 
 namespace CRI_Client
 {
@@ -20,13 +17,14 @@ namespace CRI_Client
     // itf.SendCommand("TestCommand for robot...");
     // The lines with log4net or log.Debug can be removed, they are only used for debugging
     //
-    public class HardwareProtocolClient 
+    public class HardwareProtocolClient
     {
         // Create a logger for use in this class
         public static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public bool flagConnected = false;
 
+        // These define what types of messages are not written to the log. Set by the UI.
         public bool flagHideAliveMessages = true;
         public bool flagHideBasicStatusMessages = true;
         public bool flagHidePlatformStatusMessages = true;
@@ -67,17 +65,17 @@ namespace CRI_Client
 
         int sendCnt = 1;                                // counts the number of send messages [1 .. 9999]
         int cmdCnt = 20;                                // reference for the transmitted robot program commands
-     
-      
-        //***********************************************************
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public HardwareProtocolClient()
         {
             for (int i = 0; i < 9; i++)
                 errorCodes[i] = -1;
         }
 
-
-        //**************************************************
         /// <summary>
         /// Stops the read and write loops with the CRI server.
         /// Calling this function before closing the application is necessary because the read and write loops run in seperate threads.
@@ -89,21 +87,26 @@ namespace CRI_Client
             flagStopRequest = true;
             while (flagThreadReadRunning || flagThreadWriteRunning)
                 System.Threading.Thread.Sleep(50);
-            
+
             serverStream?.Close();
             clientSocket?.Close();
 
             log.Info("CRI communication stopped.");
         }
 
-        //***********************************************************
-        // Sets the server address
-        public void SetIPAddress(string ipa){
+        /// <summary>
+        /// Sets the server address
+        /// </summary>
+        /// <param name="ipa"></param>
+        public void SetIPAddress(string ipa)
+        {
             ipAddress = ipa;
         }
 
-        //***********************************************************
-        // Set the 9 jog values (6 for the robot, 3 for the gripper)
+        /// <summary>
+        /// Set the 9 jog values (6 for the robot, 3 for the gripper)
+        /// </summary>
+        /// <param name="jValues"></param>
         public void SetJogValues(double[] jValues)
         {
             try
@@ -118,24 +121,15 @@ namespace CRI_Client
             catch (Exception) { }
         }
 
-        //***********************************************************
-        // Sets the override [0..100]
+        /// <summary>
+        /// Sets the override [0..100]
+        /// </summary>
+        /// <param name="ovr"></param>
         public void SetOverride(double ovr)
         {
             if (ovr > 100.0) ovr = 100.0;
             if (ovr < 0.0) ovr = 0.0;
             string cmdString = "CMD Override " + ovr.ToString("0.0");
-            SendCommand(cmdString);
-        }
-
-        //***********************************************************
-        // Sends a store part message
-        public void SetStoreCmd(int[] from, int[] target, int hoehe)
-        {
-            string cmdString = "STORAGE 234 GETPART ";
-            cmdString += from[0] + " " + from[1] + " " + from[2] + " ";
-            cmdString += target[0] + " " + target[1] + " " + target[2] + " ";
-            cmdString += hoehe;
             SendCommand(cmdString);
         }
 
@@ -182,8 +176,6 @@ namespace CRI_Client
             itf.writeThread = null;
         }
 
-
-        //********************************************************************
         /// <summary>
         /// Main read loop. Sets up a connection to the CRI server on port 3920.
         /// Receives the messages from the CRI server and triggers the parsing.
@@ -191,8 +183,9 @@ namespace CRI_Client
         static void readLoop(object Context)
         {
             HardwareProtocolClient itf = (HardwareProtocolClient)Context;
-            itf.flagThreadReadRunning = true;            
-            try{
+            itf.flagThreadReadRunning = true;
+            try
+            {
                 itf.clientSocket = new TcpClient();
                 itf.clientSocket.Connect(itf.ipAddress, 3920);       // establish a connection on port 3920
                 itf.serverStream = itf.clientSocket.GetStream();
@@ -244,7 +237,7 @@ namespace CRI_Client
                         }
                         catch (Exception)
                         {
-                            Thread.Sleep(5);        
+                            Thread.Sleep(5);
                         }
                     }
                     else
@@ -253,7 +246,8 @@ namespace CRI_Client
                     }
                 }   // end of while()
 
-            }catch (Exception E)
+            }
+            catch (Exception E)
             {
                 log.ErrorFormat("Could not connect to robot controller: {0}", E.Message);
             }
@@ -264,16 +258,14 @@ namespace CRI_Client
             itf.commThread = null;
             return;
         }
-    
 
-        //******************************************************
         /// <summary>
         /// Starts the read and write loops which then connect to the CRI server
         /// </summary>
         public void Connect()
         {
             log.DebugFormat("Connecting to the remote control...");
-           
+
             //********************* START READ AND WRITE LOOP ***************************************
             if (!flagConnected)
             {
@@ -308,17 +300,15 @@ namespace CRI_Client
             }
         }
 
-
-
-        //*****************************************************
+        /// <summary>
+        /// Sends a CRI command
+        /// </summary>
+        /// <param name="cmd"></param>
         public void SendCommand(string cmd)
         {
             SendCommand(cmd, false);
         }
 
-
-
-        //**********************************************************
         /// <summary>
         /// Sends the cmd string to the server when connected
         /// Before sending prefix "CRI cCnt " and postfix " END" are added
@@ -326,7 +316,7 @@ namespace CRI_Client
         public void SendCommand(string cmd, bool silent)
         {
             if (!flagConnected || serverStream == null) return;
-            
+
             string msg = "CRISTART " + sendCnt.ToString() + " " + cmd + " CRIEND";
             try
             {
@@ -342,16 +332,15 @@ namespace CRI_Client
                     log.Debug(msg);
             }
             catch (Exception) { }
-     
         }
 
-        //*************************************************************
         /// <summary>
         /// Requests the CRI server to add a RelativeLinear command to the current robot program
         /// Parameters are x, y, z in mm and the desired velocity in mm / sec.
         /// Return value is the cmdCnt of the transmitted command
         /// </summary>
-        public int SendAddRelativeLin(double x, double y, double z, double velmms){
+        public int SendAddRelativeLin(double x, double y, double z, double velmms)
+        {
             string msg = "PROG " + cmdCnt.ToString() + " RELATIVELINEAR "
                 + x.ToString("0.0") + " "
                 + y.ToString("0.0") + " "
@@ -364,8 +353,14 @@ namespace CRI_Client
             return cmdCnt;
         }
 
-        //*************************************************************
-        public int SendAddJoint(double[] joints, double velpercent){
+        /// <summary>
+        /// Requests the robot control to att a joint motion command to the current program
+        /// </summary>
+        /// <param name="joints">joint values, must be at least 6 entries</param>
+        /// <param name="velpercent">velocity in percent (0.0 - 100.0)</param>
+        /// <returns>CRI command number</returns>
+        public int SendAddJoint(double[] joints, double velpercent)
+        {
             string msg = "PROG " + cmdCnt.ToString() + " JOINT "
                 + joints[0].ToString("0.00") + " "
                 + joints[1].ToString("0.00") + " "
@@ -383,7 +378,11 @@ namespace CRI_Client
 
         }
 
-        //*************************************************************
+        /// <summary>
+        /// Requests the robot control to add a wait command to the current program
+        /// </summary>
+        /// <param name="sec">Number of seconds to wait</param>
+        /// <returns>CRI command number</returns>
         public int SendAddWait(double sec)
         {
             string msg = "PROG " + cmdCnt.ToString() + " WAIT"
@@ -393,17 +392,21 @@ namespace CRI_Client
             if (cmdCnt >= 10000)
                 cmdCnt = 0;
             return cmdCnt;
-
         }
 
-        //*************************************************************
-        public int SendAddGripper(double a1, double a2, double a3, double velpercent)
+        /// <summary>
+        /// Requests the robot control to add a gripper command to the current program
+        /// </summary>
+        /// <param name="a1">position of gripper axis 1 (0 - 100)</param>
+        /// <param name="a2">position of gripper axis 2 (not used: 0)</param>
+        /// <param name="a3">position of gripper axis 3 (not used: 0)</param>
+        /// <returns>CRI command number</returns>
+        public int SendAddGripper(double a1, double a2 = 0, double a3 = 0)
         {
             string msg = "PROG " + cmdCnt.ToString() + " GRIPPER"
                 + a1.ToString("0.00") + " "
                 + a2.ToString("0.00") + " "
-                + a3.ToString("0.00") + " "
-                + velpercent.ToString("0.0");
+                + a3.ToString("0.00");
             SendCommand(msg);
             cmdCnt++;
             if (cmdCnt >= 10000)
@@ -412,14 +415,19 @@ namespace CRI_Client
         }
 
 
-        //**********************************************************************************
+        /// <summary>
+        /// Parses a received CRI message
+        /// </summary>
+        /// <param name="msg">CRI message</param>
         private void ParseString(string msg)
         {
             try
             {
+                // Split the string into parts
                 string[] parts = msg.Split(' ');
                 if ((parts.Length < 3) || (parts[0] != "CRISTART")) return;     // Check for the correct start token
 
+                // The start token is followed by the command number and the message type
                 string msgType = parts[2];
 
                 if (msgType == "STATUS")
@@ -481,15 +489,15 @@ namespace CRI_Client
 
                 else if (msgType == "LOGMSG") // log messages
                 {
-
+                    // ignore
                 }
 
-                else if(msgType == "APP") // app messages
+                else if (msgType == "APP") // app messages
                 {
                     if (!flagHideFurtherStatusMessages) log.Info(msg);
                 }
 
-                else if(msgType == "INFO") // info messages
+                else if (msgType == "INFO") // info messages
                 {
                     if (parts[3] == "Version")
                     {
@@ -515,12 +523,15 @@ namespace CRI_Client
 
 
 
-        //**********************************************************************************
+        /// <summary>
+        /// Parses a STATUS message
+        /// </summary>
+        /// <param name="msg">CRI message</param>
         private void ParseStatusString(string msg)
         {
             try
             {
-                
+
                 //CRISTART 1234 STATUS MODE joint                            parts[0] to parts[4]
                 //POSJOINTSETPOINT 1.00 2.00 3.00 …. 15.00 16.00        parts[5] to parts[21]
                 //POSJOINTCURRENT 1.00 2.00 3.00 …. 15.00 16.00         parts[22] to parts[38]
@@ -534,7 +545,7 @@ namespace CRI_Client
                 //KINSTATE 3 CRIEND                                        parts[99]
 
                 string[] parts = msg.Split(' ');
-                if ((parts.Length < 3) || (parts[0]!="CRISTART")) return;
+                if ((parts.Length < 3) || (parts[0] != "CRISTART")) return;
                 int nr = int.Parse(parts[1]);
 
                 statusCnt = int.Parse(parts[1]);
@@ -563,7 +574,7 @@ namespace CRI_Client
                 posJointsCurrent[5] = double.Parse(parts[28], culInf);
                 // gripper
                 posJointsCurrent[6] = double.Parse(parts[29], culInf);
-                
+
                 // cartesian position
                 posCartesian[0] = double.Parse(parts[40], culInf);
                 posCartesian[1] = double.Parse(parts[41], culInf);
@@ -589,12 +600,12 @@ namespace CRI_Client
                 }
 
                 emergencyStopStatus = int.Parse(parts[57], culInf);
-                supplyVoltage =  int.Parse(parts[59], culInf);
-                currentAll =    int.Parse(parts[61], culInf);
-                
+                supplyVoltage = int.Parse(parts[59], culInf);
+                currentAll = int.Parse(parts[61], culInf);
+
                 for (int i = 0; i < 9; i++)
-                    currentJoints[i] = int.Parse(parts[63+i], culInf);
-                
+                    currentJoints[i] = int.Parse(parts[63 + i], culInf);
+
                 errorString = parts[80];
                 for (int i = 0; i < 9; i++)
                     errorCodes[i] = int.Parse(parts[81 + i], culInf);
@@ -607,27 +618,29 @@ namespace CRI_Client
                 log.ErrorFormat("Error parsing server answer: {0}", ex.Message);
             }
         }
-          
 
-
-        //******************************************************
+        /// <summary>
+        /// Disconnects the CRI client
+        /// </summary>
         public void Disconnect()
         {
             flagConnected = false;
             flagStopRequest = true;
         }
 
-           
-        
-         
-        //*******************************************************************************
+        /// <summary>
+        /// Gets the connection status
+        /// </summary>
+        /// <returns>true if connected</returns>
         public bool GetConnectionStatus()
         {
             return flagConnected;
         }
 
-        //****************************************************************************
-        // Ping to the target computer
+        /// <summary>
+        /// Pings the target computer to test whether connecting is possible.
+        /// </summary>
+        /// <returns>true on success</returns>
         public bool Ping()
         {
             bool res = false;
@@ -651,18 +664,19 @@ namespace CRI_Client
             return res;
         }
 
-
-        //****************************************************************************
-        // Preliminary!
-        // Start the robot controller on the remote linux platform
-        // A SSH connection is used to do so. This requires the user to accept the safety certificate. Before using 
-        // this function a manual SSH connection should be established to check if manual operations are necessary to connect.
+        /// <summary>
+        /// Preliminary!
+        /// Start the robot controller on the remote linux platform
+        /// A SSH connection is used to do so. This requires the user to accept the safety certificate. Before using 
+        /// this function a manual SSH connection should be established to check if manual operations are necessary to connect.
+        /// </summary>
+        /// <returns></returns>
         public bool StartRobotControl()
         {
             bool res = false;
             // call putty via plink to start the robot control via SSH
             // plink -ssh root@192.168.3.11 /home/root/TinyCtrl/startBatch.sh
-            string progfn = "/home/root/TinyCtrl/startBatch.sh";
+            string progfn = "/home/root/TinyCtrl/startBatch.sh"; // Note: Since RobotControl V14 the path should be /home/root/RobotControl/...
             //string args = "-ssh -pw password login@" + ipAdress + " " + progfn;
             string args = "-ssh root@" + ipAddress + " " + progfn;
 

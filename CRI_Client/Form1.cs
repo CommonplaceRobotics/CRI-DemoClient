@@ -30,9 +30,6 @@ namespace CRI_Client
             System.Globalization.CultureInfo culInf = new System.Globalization.CultureInfo("en-US");
             Application.CurrentCulture = culInf;
 
-            string ipAddress = "192.168.3.11";          // remote computer with TinyCtrl
-            textBoxIPAddress.Text = ipAddress;
-
             buttonJogXPlus.Text = "A1+"; buttonJogXMinus.Text = "A1-";
             buttonJogYPlus.Text = "A2+"; buttonJogYMinus.Text = "A2-";
             buttonJogZPlus.Text = "A3+"; buttonJogZMinus.Text = "A3-";
@@ -40,11 +37,9 @@ namespace CRI_Client
             buttonJogBPlus.Text = "A5+"; buttonJogBMinus.Text = "A5-";
             buttonJogCPlus.Text = "A6+"; buttonJogCMinus.Text = "A6-";
 
-
             timer1.Interval = 100;
             timer1.Enabled = true;
             log.Info("CPR CRI test client");
-
 
             itf = new HardwareProtocolClient();
         }
@@ -61,8 +56,7 @@ namespace CRI_Client
             else
                 labelConnectionStatus.Text = "Not connected";
 
-
-
+            // Create joints position text
             string jointsString = "Joints SetPoint:";
             string jointsCurrentString = "Joints Current:";
             for (int i = 0; i < 7; i++)
@@ -75,8 +69,7 @@ namespace CRI_Client
             labelPositionJoints.Text = jointsString;
             labelPositionJointsCurrent.Text = jointsCurrentString;
 
-
-
+            // Create cart position text
             string posString = "Position Cart:";
             for (int i = 0; i < 6; i++)
             {
@@ -85,9 +78,7 @@ namespace CRI_Client
             }
             labelPositionCart.Text = posString;
 
-
-
-
+            // Create other info text
             string overrideString = "Override: " + itf.overrideValue.ToString("0.0");
             string currentAllString = "CurrentAll [mA]: " + itf.currentAll.ToString();
             string SupplyVoltageString = "Supply [mV]: " + itf.supplyVoltage.ToString();
@@ -129,7 +120,8 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonItfConnect_Click(object sender, EventArgs e)
         {
-            itf.SetIPAddress(textBoxIPAddress.Text);
+            itf.IPAddress = textBoxIPAddress.Text;
+            itf.Port = (int)textBoxPort.Value;
             if (!itf.GetConnectionStatus())
             {
                 itf.Connect();
@@ -142,7 +134,6 @@ namespace CRI_Client
         }
 
 
-
         //******************** REGION JOG **********************
         #region jog
 
@@ -153,8 +144,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogXPlus_Click(object sender, EventArgs e)
         {
-            if (jogValues[0] <= 90.0)
-                jogValues[0] += 10.0;
+            jogValues[0] = Math.Min(jogValues[0] + 10.0, 100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -165,8 +155,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogXMinus_Click(object sender, EventArgs e)
         {
-            if (jogValues[0] >= -90.0)
-                jogValues[0] -= 10.0;
+            jogValues[0] = Math.Max(jogValues[0] - 10.0, -100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -177,8 +166,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogYPlus_Click(object sender, EventArgs e)
         {
-            if (jogValues[1] <= 90.0)
-                jogValues[1] += 10.0;
+            jogValues[1] = Math.Min(jogValues[1] + 10.0, 100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -189,8 +177,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogYMinus_Click(object sender, EventArgs e)
         {
-            if (jogValues[1] >= -90.0)
-                jogValues[1] -= 10.0;
+            jogValues[1] = Math.Max(jogValues[1] - 10.0, -100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -201,8 +188,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogZPlus_Click(object sender, EventArgs e)
         {
-            if (jogValues[2] <= 90.0)
-                jogValues[2] += 10.0;
+            jogValues[2] = Math.Min(jogValues[2] + 10.0, 100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -213,8 +199,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogZMinus_Click(object sender, EventArgs e)
         {
-            if (jogValues[2] >= -90.0)
-                jogValues[2] -= 10.0;
+            jogValues[2] = Math.Max(jogValues[2] - 10.0, -100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -225,8 +210,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogAMinus_Click(object sender, EventArgs e)
         {
-            if (jogValues[3] >= -90.0)
-                jogValues[3] -= 10.0;
+            jogValues[3] = Math.Max(jogValues[3] - 10.0, -100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -237,8 +221,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogAPlus_Click(object sender, EventArgs e)
         {
-            if (jogValues[3] <= 90.0)
-                jogValues[3] += 10.0;
+            jogValues[3] = Math.Min(jogValues[3] + 10.0, 100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -249,8 +232,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogBMinus_Click(object sender, EventArgs e)
         {
-            if (jogValues[4] >= -90.0)
-                jogValues[4] -= 10.0;
+            jogValues[4] = Math.Max(jogValues[4] - 10.0, -100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -261,8 +243,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogBPlus_Click(object sender, EventArgs e)
         {
-            if (jogValues[4] <= 90.0)
-                jogValues[4] += 10.0;
+            jogValues[4] = Math.Min(jogValues[4] + 10.0, 100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -273,8 +254,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogCMinus_Click(object sender, EventArgs e)
         {
-            if (jogValues[5] >= -90.0)
-                jogValues[5] -= 10.0;
+            jogValues[5] = Math.Max(jogValues[5] - 10.0, -100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -285,8 +265,7 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonJogCPlus_Click(object sender, EventArgs e)
         {
-            if (jogValues[5] <= 90.0)
-                jogValues[5] += 10.0;
+            jogValues[5] = Math.Min(jogValues[5] + 10.0, 100.0);
             itf.SetJogValues(jogValues);
         }
 
@@ -310,8 +289,7 @@ namespace CRI_Client
         private void buttonJogOverrideMinus_Click(object sender, EventArgs e)
         {
             double ovr = itf.overrideValue;
-            if (ovr >= 10.0)
-                ovr -= 10.0;
+            jogValues[0] = Math.Max(jogValues[0] - 10.0, 0.0);
             itf.SetOverride(ovr);
         }
 
@@ -323,8 +301,7 @@ namespace CRI_Client
         private void buttonJogOverridePlus_Click(object sender, EventArgs e)
         {
             double ovr = itf.overrideValue;
-            if (ovr <= 90.0)
-                ovr += 10.0;
+            jogValues[0] = Math.Min(jogValues[0] + 10.0, 100.0);
             itf.SetOverride(ovr);
         }
 
@@ -383,7 +360,6 @@ namespace CRI_Client
             j[5] = double.Parse(textBoxMoveJoint6.Text);
 
             double vel = double.Parse(textBoxMoveJointVel.Text);
-
 
             itf.SendAddJoint(j, vel);
         }
@@ -459,12 +435,6 @@ namespace CRI_Client
         /// <param name="e"></param>
         private void buttonCmdSendProgram_Click(object sender, EventArgs e)
         {
-            //if (!itf.GetConnectionStatus())
-            //{
-            //    log.Error("Send Program: Cannot send while not connected!");
-            //    return;
-            //}
-
             string progName = "test_matrix.xml";
             StreamReader sr;
             string line;
@@ -607,17 +577,6 @@ namespace CRI_Client
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             itf.StopCRIClient();        // Necessary to allow a clean closing of the communication line
-        }
-
-        /// <summary>
-        /// Handles the start TinyCtrl button
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonStartTinyCtrl_Click(object sender, EventArgs e)
-        {
-            itf.Ping();
-            itf.StartRobotControl();
         }
 
         /// <summary>

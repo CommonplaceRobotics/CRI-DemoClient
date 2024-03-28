@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.NetworkInformation;    // for Ping
 using System.Net.Sockets;
 using System.Text;
@@ -36,16 +35,19 @@ namespace CRI_Client
         /// </summary>
         public int CRIVersion { get; private set; } = 17;
 
-        TcpClient clientSocket;
-        NetworkStream serverStream;
-        string ipAddress;                       // Server address 
-        Thread commThread;
-        Thread writeThread;
-        bool flagStopRequest = false;
-        bool flagThreadWriteRunning = false;
-        bool flagThreadReadRunning = false;
+        private TcpClient clientSocket;
+        private NetworkStream serverStream;
 
-        //information on the connected robot arm
+        public string IPAddress { get; set; }
+        public int Port { get; set; }
+
+        private Thread commThread;
+        private Thread writeThread;
+        private bool flagStopRequest = false;
+        private bool flagThreadWriteRunning = false;
+        private bool flagThreadReadRunning = false;
+
+        // Information on the connected robot arm
         public double[] posJointsSetPoint = new double[9];
         public double[] posJointsCurrent = new double[9];
         public double[] posCartesian = new double[6];
@@ -60,11 +62,11 @@ namespace CRI_Client
         public int emergencyStopStatus = 0;             // Bit1: MainRelais Bit2: ES-Button Bit3: Periphery
         public int statusCnt = -1;
 
-        //Information on the users commands
-        readonly double[] jogValues = new double[9];
+        // Information on the users commands
+        private readonly double[] jogValues = new double[9];
 
-        int sendCnt = 1;                                // counts the number of send messages [1 .. 9999]
-        int cmdCnt = 20;                                // reference for the transmitted robot program commands
+        private int sendCnt = 1;                                // counts the number of send messages [1 .. 9999]
+        private int cmdCnt = 20;                                // reference for the transmitted robot program commands
 
 
         /// <summary>
@@ -92,15 +94,6 @@ namespace CRI_Client
             clientSocket?.Close();
 
             log.Info("CRI communication stopped.");
-        }
-
-        /// <summary>
-        /// Sets the server address
-        /// </summary>
-        /// <param name="ipa"></param>
-        public void SetIPAddress(string ipa)
-        {
-            ipAddress = ipa;
         }
 
         /// <summary>
@@ -145,24 +138,23 @@ namespace CRI_Client
         /// <summary>
         /// Writes the ALIVEJOG message in a 10 Hz loop to the CRI server
         /// </summary>
-        static void writeLoop(object Context)
+        void WriteLoop()
         {
             int sleepTime = 100;
-            HardwareProtocolClient itf = (HardwareProtocolClient)Context;
-            itf.flagThreadWriteRunning = true;
+            flagThreadWriteRunning = true;
             try
             {
                 // request the CRI version (not necessary if you only connect to a specific major robot control version)
-                itf.RequestCRIVersion();
+                RequestCRIVersion();
 
-                while (!itf.flagStopRequest)
+                while (!flagStopRequest)
                 {
                     // this string should be 256 char long max, otherwise it may not be read completly
                     string msg = "ALIVEJOG "
-                        + itf.jogValues[0].ToString("0.0") + " " + itf.jogValues[1].ToString("0.0") + " " + itf.jogValues[2].ToString("0.0") + " "
-                        + itf.jogValues[3].ToString("0.0") + " " + itf.jogValues[4].ToString("0.0") + " " + itf.jogValues[5].ToString("0.0") + " "
-                        + itf.jogValues[6].ToString("0.0") + " " + itf.jogValues[7].ToString("0.0") + " " + itf.jogValues[8].ToString("0.0");
-                    itf.SendCommand(msg, itf.flagHideAliveMessages);
+                        + jogValues[0].ToString("0.0") + " " + jogValues[1].ToString("0.0") + " " + jogValues[2].ToString("0.0") + " "
+                        + jogValues[3].ToString("0.0") + " " + jogValues[4].ToString("0.0") + " " + jogValues[5].ToString("0.0") + " "
+                        + jogValues[6].ToString("0.0") + " " + jogValues[7].ToString("0.0") + " " + jogValues[8].ToString("0.0");
+                    SendCommand(msg, flagHideAliveMessages);
                     Thread.Sleep(sleepTime);
                 }
             }
@@ -170,34 +162,39 @@ namespace CRI_Client
             {
                 log.ErrorFormat("CRI write loop: {0}", ex.Message);
             }
-            itf.flagConnected = false;
-            itf.flagThreadWriteRunning = false;
-            itf.flagStopRequest = true;
-            itf.writeThread = null;
+            flagConnected = false;
+            flagThreadWriteRunning = false;
+            flagStopRequest = true;
+            writeThread = null;
         }
 
         /// <summary>
         /// Main read loop. Sets up a connection to the CRI server on port 3920.
         /// Receives the messages from the CRI server and triggers the parsing.
         /// </summary>
-        static void readLoop(object Context)
+        void ReadLoop()
         {
-            HardwareProtocolClient itf = (HardwareProtocolClient)Context;
-            itf.flagThreadReadRunning = true;
+            flagThreadReadRunning = true;
             try
             {
-                itf.clientSocket = new TcpClient();
-                itf.clientSocket.Connect(itf.ipAddress, 3920);       // establish a connection on port 3920
-                itf.serverStream = itf.clientSocket.GetStream();
-                itf.serverStream.ReadTimeout = 100;
-                log.InfoFormat("Interface: connected to {0}", itf.ipAddress);
+                clientSocket = new TcpClient();
+                clientSocket.Connect(IPAddress, Port);       // establish a connection on port 3920
+                serverStream = clientSocket.GetStream();
+                serverStream.ReadTimeout = 100;
+                log.InfoFormat("Interface: connected to {0}:{1}", IPAddress, Port);
                 System.Threading.Thread.Sleep(100);
                 byte[] buffer = new byte[4096];
                 log.DebugFormat("ReadLoop started...");
 
-                while (!itf.flagStopRequest)                            // Main read loop
+                const int timeoutSeconds = 10;
+                DateTime lastMessageTime = DateTime.Now;
+                DateTime timeStarted = DateTime.Now;
+                bool gotMessage = false;
+
+                // Main read loop
+                while (!flagStopRequest && clientSocket.Connected && (DateTime.Now.Subtract(lastMessageTime).TotalSeconds < timeoutSeconds))
                 {
-                    if (itf.serverStream.DataAvailable)
+                    if (serverStream.DataAvailable)
                     {
                         try
                         {
@@ -207,7 +204,8 @@ namespace CRI_Client
                             //********************** Read Loop *******************************************
                             // CRISTART 1234 msgtype content CRIEND
                             // wait for "CRISTART" and then read until "CRIEND"
-                            while (true)
+                            bool gotStart = false;
+                            while (serverStream.DataAvailable && !flagStopRequest)
                             {
                                 buffer[0] = buffer[1];
                                 buffer[1] = buffer[2];
@@ -216,24 +214,41 @@ namespace CRI_Client
                                 buffer[4] = buffer[5];
                                 buffer[5] = buffer[6];
                                 buffer[6] = buffer[7];
-                                buffer[7] = (byte)itf.serverStream.ReadByte();
+                                buffer[7] = (byte)serverStream.ReadByte();
 
                                 if ((buffer[0] == 'C') && (buffer[1] == 'R') && (buffer[2] == 'I') && (buffer[3] == 'S') && (buffer[4] == 'T') && (buffer[5] == 'A') && (buffer[6] == 'R') && (buffer[7] == 'T'))
+                                {
+                                    gotStart = true;
                                     break;
-                            }
-                            // read the content until CRIEND
-                            int cnt = 8;
-                            while (true)
-                            {
-                                buffer[cnt] = (byte)itf.serverStream.ReadByte();
-                                cnt++;
-                                if ((buffer[cnt - 6] == 'C') && (buffer[cnt - 5] == 'R') && (buffer[cnt - 4] == 'I') && (buffer[cnt - 3] == 'E') && (buffer[cnt - 2] == 'N') && (buffer[cnt - 1] == 'D'))
-                                    break;
+                                }
                             }
 
-                            // evaluate the content
-                            string res = Encoding.ASCII.GetString(buffer, 0, cnt);
-                            itf.ParseString(res);
+                            if (gotStart)
+                            {
+                                // read the content until CRIEND
+                                bool gotEnd = false;
+                                int cnt = 8;
+                                while (true)
+                                {
+                                    buffer[cnt] = (byte)serverStream.ReadByte();
+                                    cnt++;
+                                    if ((buffer[cnt - 6] == 'C') && (buffer[cnt - 5] == 'R') && (buffer[cnt - 4] == 'I') && (buffer[cnt - 3] == 'E') && (buffer[cnt - 2] == 'N') && (buffer[cnt - 1] == 'D'))
+                                    {
+                                        gotEnd = true;
+                                        break;
+                                    }
+                                }
+
+                                // evaluate the content
+                                if (gotEnd)
+                                {
+                                    string res = Encoding.ASCII.GetString(buffer, 0, cnt);
+                                    ParseString(res);
+
+                                    gotMessage = true;
+                                    lastMessageTime = DateTime.Now;
+                                }
+                            }
                         }
                         catch (Exception)
                         {
@@ -246,16 +261,18 @@ namespace CRI_Client
                     }
                 }   // end of while()
 
+                // If the CRI server is occupied we are able to connect but will not receive any messages
+                if (!gotMessage && DateTime.Now.Subtract(timeStarted).TotalSeconds >= 5) throw new Exception("CRI server did not respond");
             }
             catch (Exception E)
             {
                 log.ErrorFormat("Could not connect to robot controller: {0}", E.Message);
             }
 
-            itf.flagConnected = false;
-            itf.flagThreadReadRunning = false;
-            itf.flagStopRequest = true;
-            itf.commThread = null;
+            flagConnected = false;
+            flagThreadReadRunning = false;
+            flagStopRequest = true;
+            commThread = null;
             return;
         }
 
@@ -274,22 +291,22 @@ namespace CRI_Client
 
                 if (writeThread == null)
                 {
-                    writeThread = new Thread(writeLoop);
+                    writeThread = new Thread(WriteLoop);
                     writeThread.Priority = ThreadPriority.Normal;
                     writeThread.Name = "WriteLoop";
                     System.Globalization.CultureInfo culInf = new System.Globalization.CultureInfo("en-US");   // um Zahlen mit . zu trennen
                     writeThread.CurrentCulture = culInf;
-                    writeThread.Start(this);
+                    writeThread.Start();
                 }
 
                 if (commThread == null)
                 {
-                    commThread = new Thread(readLoop);
+                    commThread = new Thread(ReadLoop);
                     commThread.Priority = ThreadPriority.Normal;
                     commThread.Name = "ReadLoop";
                     System.Globalization.CultureInfo culInf = new System.Globalization.CultureInfo("en-US");   // um Zahlen mit . zu trennen
                     commThread.CurrentCulture = culInf;
-                    commThread.Start(this);
+                    commThread.Start();
                 }
             }
             else
@@ -531,7 +548,6 @@ namespace CRI_Client
         {
             try
             {
-
                 //CRISTART 1234 STATUS MODE joint                            parts[0] to parts[4]
                 //POSJOINTSETPOINT 1.00 2.00 3.00 …. 15.00 16.00        parts[5] to parts[21]
                 //POSJOINTCURRENT 1.00 2.00 3.00 …. 15.00 16.00         parts[22] to parts[38]
@@ -645,11 +661,10 @@ namespace CRI_Client
         {
             bool res = false;
 
-            string msg = "Ping for robot control on IP ";
-            msg += ipAddress;
+            string msg = "Ping for robot control on IP " + IPAddress;
 
             Ping Sender = new Ping();
-            PingReply Result = Sender.Send(ipAddress);
+            PingReply Result = Sender.Send(IPAddress);
             if (Result.Status == IPStatus.Success)
             {
                 res = true;
@@ -661,45 +676,6 @@ namespace CRI_Client
             }
 
             log.Info(msg);
-            return res;
-        }
-
-        /// <summary>
-        /// Preliminary!
-        /// Start the robot controller on the remote linux platform
-        /// A SSH connection is used to do so. This requires the user to accept the safety certificate. Before using 
-        /// this function a manual SSH connection should be established to check if manual operations are necessary to connect.
-        /// </summary>
-        /// <returns></returns>
-        public bool StartRobotControl()
-        {
-            bool res = false;
-            // call putty via plink to start the robot control via SSH
-            // plink -ssh root@192.168.3.11 /home/root/TinyCtrl/startBatch.sh
-            string progfn = "/home/root/TinyCtrl/startBatch.sh"; // Note: Since RobotControl V14 the path should be /home/root/RobotControl/...
-            //string args = "-ssh -pw password login@" + ipAdress + " " + progfn;
-            string args = "-ssh root@" + ipAddress + " " + progfn;
-
-            try
-            {
-                ProcessStartInfo start = new ProcessStartInfo();            // Prepare the process to run
-                start.Arguments = args;                                     // command line arguments
-                start.FileName = "plink.exe";                               // executable to run, including the complete path
-                //start.WorkingDirectory = workingDirectory;
-                start.WindowStyle = ProcessWindowStyle.Normal;              //show a console window?
-                start.CreateNoWindow = true;
-                // Run the external process & wait for it to finish
-                Process proc = Process.Start(start);
-                proc.Close();
-                //proc.WaitForExit();
-                int result = proc.ExitCode;
-                log.InfoFormat("Starting remote controller: {0}", args);
-                log.InfoFormat("Result: {0}", result);
-            }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("Could not start remote controller: {0}", ex.Message);
-            }
             return res;
         }
 

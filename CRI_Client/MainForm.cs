@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CRI_Client
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 
         // Create a logger for use in this class
@@ -23,7 +23,7 @@ namespace CRI_Client
         /// <summary>
         /// Constructor
         /// </summary>
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 

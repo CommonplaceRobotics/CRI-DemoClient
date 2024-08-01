@@ -289,7 +289,7 @@ namespace CRI_Client
         private void buttonJogOverrideMinus_Click(object sender, EventArgs e)
         {
             double ovr = itf.overrideValue;
-            jogValues[0] = Math.Max(jogValues[0] - 10.0, 0.0);
+            ovr = Math.Max(ovr - 10.0, 0.0);
             itf.SetOverride(ovr);
         }
 
@@ -301,7 +301,7 @@ namespace CRI_Client
         private void buttonJogOverridePlus_Click(object sender, EventArgs e)
         {
             double ovr = itf.overrideValue;
-            jogValues[0] = Math.Min(jogValues[0] + 10.0, 100.0);
+            ovr = Math.Min(ovr + 10.0, 100.0);
             itf.SetOverride(ovr);
         }
 

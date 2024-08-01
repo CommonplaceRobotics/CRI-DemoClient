@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxPort = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.buttonSetActive = new System.Windows.Forms.Button();
             this.buttonDisconnect = new System.Windows.Forms.Button();
@@ -185,10 +188,9 @@
             this.labelCustomCommand = new System.Windows.Forms.Label();
             this.textBoxCustomCommand = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.textBoxPort = new System.Windows.Forms.NumericUpDown();
+            this.label37 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxPort)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -202,7 +204,6 @@
             this.tabPageVariables.SuspendLayout();
             this.tabPageReferencing.SuspendLayout();
             this.tabPageCustom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textBoxPort)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -211,6 +212,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label37);
             this.groupBox1.Controls.Add(this.textBoxPort);
             this.groupBox1.Controls.Add(this.label36);
             this.groupBox1.Controls.Add(this.label35);
@@ -226,6 +228,41 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Remote Control";
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Location = new System.Drawing.Point(5, 72);
+            this.textBoxPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(108, 20);
+            this.textBoxPort.TabIndex = 9;
+            this.textBoxPort.Value = new decimal(new int[] {
+            3920,
+            0,
+            0,
+            0});
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(7, 56);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(29, 13);
+            this.label36.TabIndex = 8;
+            this.label36.Text = "Port:";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(7, 17);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(48, 13);
+            this.label35.TabIndex = 7;
+            this.label35.Text = "Address:";
             // 
             // label34
             // 
@@ -250,7 +287,7 @@
             // 
             // buttonDisconnect
             // 
-            this.buttonDisconnect.Location = new System.Drawing.Point(10, 147);
+            this.buttonDisconnect.Location = new System.Drawing.Point(10, 186);
             this.buttonDisconnect.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDisconnect.Name = "buttonDisconnect";
             this.buttonDisconnect.Size = new System.Drawing.Size(100, 35);
@@ -262,7 +299,7 @@
             // labelConnectionStatus
             // 
             this.labelConnectionStatus.AutoSize = true;
-            this.labelConnectionStatus.Location = new System.Drawing.Point(5, 184);
+            this.labelConnectionStatus.Location = new System.Drawing.Point(5, 223);
             this.labelConnectionStatus.Name = "labelConnectionStatus";
             this.labelConnectionStatus.Size = new System.Drawing.Size(112, 13);
             this.labelConnectionStatus.TabIndex = 2;
@@ -278,7 +315,7 @@
             // 
             // buttonItfConnect
             // 
-            this.buttonItfConnect.Location = new System.Drawing.Point(10, 107);
+            this.buttonItfConnect.Location = new System.Drawing.Point(10, 146);
             this.buttonItfConnect.Name = "buttonItfConnect";
             this.buttonItfConnect.Size = new System.Drawing.Size(100, 35);
             this.buttonItfConnect.TabIndex = 0;
@@ -1897,42 +1934,16 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "Enter a custom command:";
             // 
-            // label35
+            // label37
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(7, 17);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(48, 13);
-            this.label35.TabIndex = 7;
-            this.label35.Text = "Address:";
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(5, 99);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(112, 39);
+            this.label37.TabIndex = 10;
+            this.label37.Text = "Ports:\r\nReal robot: 3920\r\nSimulation: 3921-3931";
             // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(7, 56);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(29, 13);
-            this.label36.TabIndex = 8;
-            this.label36.Text = "Port:";
-            // 
-            // textBoxPort
-            // 
-            this.textBoxPort.Location = new System.Drawing.Point(5, 72);
-            this.textBoxPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(108, 20);
-            this.textBoxPort.TabIndex = 9;
-            this.textBoxPort.Value = new decimal(new int[] {
-            3920,
-            0,
-            0,
-            0});
-            // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1943,10 +1954,11 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
-            this.Text = "CPR Robot Interface - Demo Client V3.6 from Mar 28th, 2024";
+            this.Text = "CPR Robot Interface - Demo Client V3.7 from Aug 1st, 2024";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxPort)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1969,7 +1981,6 @@
             this.tabPageReferencing.PerformLayout();
             this.tabPageCustom.ResumeLayout(false);
             this.tabPageCustom.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textBoxPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2136,6 +2147,7 @@
         private System.Windows.Forms.NumericUpDown textBoxPort;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label37;
     }
 }
 

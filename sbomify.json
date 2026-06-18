@@ -1,0 +1,14 @@
+{
+  "lifecycle_phase": "build",
+  "supplier": {
+    "name": "Commonplace Robotics GmbH",
+    "url": ["https://cpr-robots.com"],
+    "contacts": [{"name": "Support", "email": "support@cpr-robots.com"}]
+  },
+  "authors": [],
+  "licenses": ["MIT"],
+  "security_contact": "mailto:support@cpr-robots.com",
+  "release_date": "2000-01-01",
+  "support_period_end": "2000-01-01",
+  "end_of_life": "2000-01-01"
+}

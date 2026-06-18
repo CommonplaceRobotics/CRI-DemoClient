@@ -12,6 +12,12 @@ namespace CRI_Client
 {
     public partial class MainForm : Form
     {
+        // Version of the CRI Demo Client
+        // Also update the lifecycle info in sbomify.json!
+        public static readonly int SWVersionMajor = 3;
+        public static readonly int SWVersionMinor = 7;
+        public static readonly int SWVersionPatch = 1;
+        public static readonly string SWVersionString = string.Format("{0}.{1}.{2}", SWVersionMajor, SWVersionMinor, SWVersionPatch);
 
         // Create a logger for use in this class
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

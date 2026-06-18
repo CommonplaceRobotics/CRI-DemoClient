@@ -1,0 +1,51 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  # Workflow can be triggered manually
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: windows-2025
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v3
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v4
+
+    - name: Restore Packages
+      run: MSBuild.exe -p:Configuration="Release" -t:restore
+
+    - name: Build
+      run: MSBuild.exe -p:Configuration="Release"
+
+    # TODO: There are no tests yet
+    #- name: Build Tests
+    #  run: MSBuild.exe -p:Configuration="Release" -t:"ModuleControl OpenLoop Tests"
+
+    - name: Export binaries
+      uses: actions/upload-artifact@v6
+      with:
+        name: binaries
+        path: ${{ github.workspace }}/CRI_Client/bin/Release
+
+    #- name: Run Tests
+    #  run: |
+    #    & "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" "$($env:GITHUB_WORKSPACE)\CRI_Client\CRI_Client_Tests.dll"
+
+    #- name: Run tests
+    #  uses: microsoft/vstest-action@main
+    #  with:
+    #    testAssembly: CRI_Client_Tests.dll
+    #    searchFolder: ${{ github.workspace }}\Tests\bin\Release\net481\
+    #    runInParallel: true

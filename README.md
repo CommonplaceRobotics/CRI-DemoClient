@@ -1,6 +1,5 @@
 # CRI-DemoClient
-[![Build and Test](https://github.com/CommonplaceRobotics/CRI-DemoClient/actions/workflows/build.yml/badge.svg)](https://github.com/CommonplaceRobotics/CRI-DemoClient/actions/workflows/build.yml)
-[![SBOM and Security Audit](https://github.com/CommonplaceRobotics/CRI-DemoClient/actions/workflows/sbom.yml/badge.svg)](https://github.com/CommonplaceRobotics/CRI-DemoClient/actions/workflows/sbom.yml)
+[![Build](https://github.com/CommonplaceRobotics/CRI-DemoClient/actions/workflows/build.yml/badge.svg)](https://github.com/CommonplaceRobotics/CRI-DemoClient/actions/workflows/build.yml)
 
 C# demo client to connect with the igus Robot Control using the CRI ethernet interface. 
 

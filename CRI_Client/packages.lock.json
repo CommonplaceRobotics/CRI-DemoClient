@@ -1,17 +1,17 @@
 {
   "version": 1,
   "dependencies": {
-    ".NETFramework,Version=v4.8": {
+    ".NETFramework,Version=v4.8.1": {
       "log4net": {
         "type": "Direct",
-        "requested": "[3.3.1, )",
-        "resolved": "3.3.1",
-        "contentHash": "fgQ8XkqF0r4/CRfAq8xZqlPrG0/9n4rJAa1HlFGQMXtCAxbbLzXyuXCbu65NUbcKzQ9KDYr4239NNqipVRCv6A=="
+        "requested": "[3.4.0, )",
+        "resolved": "3.4.0",
+        "contentHash": "IubYl1l3vs4pZ8hRJBWjfPOW8osR1gS/FAweVYpc2n7SZ0yrZ64uMGQYjjt1nna/Hpm10IHiw4D6HSh/JFbj9w=="
       }
     },
-    ".NETFramework,Version=v4.8/win": {},
-    ".NETFramework,Version=v4.8/win-arm64": {},
-    ".NETFramework,Version=v4.8/win-x64": {},
-    ".NETFramework,Version=v4.8/win-x86": {}
+    ".NETFramework,Version=v4.8.1/win": {},
+    ".NETFramework,Version=v4.8.1/win-arm64": {},
+    ".NETFramework,Version=v4.8.1/win-x64": {},
+    ".NETFramework,Version=v4.8.1/win-x86": {}
   }
 }

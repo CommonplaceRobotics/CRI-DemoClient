@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("SliderClient")]
+[assembly: AssemblyTitle("CRI Demo Client")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("SliderClient")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2014")]
+[assembly: AssemblyCompany("Commonplace Robotics GmbH")]
+[assembly: AssemblyProduct("CRI_Demo_Client")]
+[assembly: AssemblyCopyright("Copyright © Commonplace Robotics GmbH 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

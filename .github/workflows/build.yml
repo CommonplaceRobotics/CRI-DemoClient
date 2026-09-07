@@ -3,6 +3,8 @@ name: Build
 on:
   push:
     branches: [ "master" ]
+    tags:
+      - "v*"
   pull_request:
     branches: [ "master" ]
 
@@ -129,3 +131,32 @@ jobs:
       uses: CommonplaceRobotics/Action_Validate_SBOM@v6
       with:
         sbom: sbom.cdx.json
+
+
+  release:
+    name: Publish GitHub Release
+    needs: sbom_pt2
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+
+    steps:
+    - name: Import binaries
+      uses: actions/download-artifact@v8
+      with:
+        name: CRI_Client.zip
+        path: dist/
+        skip-decompress: true
+    
+    - name: Import SBOM
+      uses: actions/download-artifact@v8
+      with:
+        name: sbom.cdx.json
+        path: dist/
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: dist/*
+        generate_release_notes: true
